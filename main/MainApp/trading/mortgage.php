@@ -1,0 +1,409 @@
+<?php
+session_start();
+session_regenerate_id(true); 
+
+$error=0;
+if (!(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true))
+{
+	header("Location: login.php"); 
+	exit();
+}
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
+?>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arcadia - Mortgage</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Tamerlan Soziev" name="author">
+    <meta content="Admin dashboard html template" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="favicon.png" rel="shortcut icon">
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="css/main.css?version=4.4.0" rel="stylesheet">
+    <link href="css/additional.css" rel="stylesheet">
+<link href="icon_fonts_assets/picons-thin/style.css" rel="stylesheet">
+
+  </head>
+  <body class="menu-position-side menu-side-left full-screen with-content-panel">
+    <div class="all-wrapper with-side-panel solid-bg-all">
+      <div class="layout-w">
+        <!--------------------
+        START - Mobile Menu
+        -------------------->
+        <div class="menu-mobile menu-activated-on-click color-scheme-dark">
+          <div class="mm-logo-buttons-w">
+            <a class="mm-logo" href="index.php"><img src="img/logo9.png"><span>F5 Forum</span></a>
+            <div class="mm-buttons">
+              <div class="content-panel-open">
+                <div class="os-icon os-icon-grid-circles"></div>
+              </div>
+              <div class="mobile-menu-trigger">
+                <div class="os-icon os-icon-hamburger-menu-1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-and-user">
+            <div class="logged-user-w">
+              <div class="avatar-w">
+                <img alt="" src="img/Phillipe.jpg">
+              </div>
+              <div class="logged-user-info-w">
+                <div class="logged-user-name">
+                  Phillipe Cloup
+                </div>
+                <div class="logged-user-role">
+                  Administrator
+                </div>
+              </div>
+            </div>
+            <!--------------------
+            START - Mobile Menu List
+            -------------------->
+            <ul class="main-menu">
+            <!-- <li>
+                <a href="accounts.php">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-layout"></div>
+                  </div>
+                  <span>Accounts</span></a>
+              </li> -->
+              <li>
+                <a href="stocks.php">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-bar-chart-stats-up"></div>
+                  </div>
+                  <span>Trading</span></a>
+              </li>
+              <li>
+                <a href="mortgage.php">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-home"></div>
+                  </div>
+                  <span>Mortgage</span></a>
+            </li>              
+			  <li >
+				<a href="logout.php">
+				<div class="icon-w">
+				  <div class="os-icon os-icon-signs-11"></div>
+				</div>
+				<span>Logout</span></a>
+			  </li>
+			 </ul>
+			 <!--------------------
+            END - Mobile Menu List
+            -------------------->
+          </div>
+        </div>
+        <!--------------------
+        END - Mobile Menu
+        --------------------><!--------------------
+        START - Main Menu
+        -------------------->
+        <div class="menu-w color-scheme-dark color-style-bright menu-position-side menu-side-left menu-layout-mini sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
+          <div class="logo-w" style="padding: 0px;">
+            <a class="logo" href="index.php">
+              <img src="img/logo9.png" style="width: 85px;">
+              <div class="logo-label">
+                F5 Forum
+              </div>
+            </a>
+          </div>
+         <h1 class="menu-page-header">
+            Page Header
+          </h1>
+          <ul class="main-menu">
+            <li class="sub-header">
+              <span>Layouts</span>
+            </li>
+            <!-- <li>
+              <a href="accounts.php">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-layout"></div>
+                </div>
+                <span>Accounts</span></a>
+            </li> -->
+            <li>
+              <a href="stocks.php">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-bar-chart-stats-up"></div>
+                </div>
+                <span>Trading</span></a>                
+            </li>
+            <li class="active">
+              <a href="mortgage.php">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-home"></div>
+                </div>
+                <span>Mortgage</span></a>
+            </li>            
+			  <li >
+				<a href="logout.php">
+				<div class="icon-w">
+				  <div class="os-icon os-icon-signs-11"></div>
+				</div>
+				<span>Logout</span></a>
+			  </li>
+          </ul>
+
+        </div>
+        <!--------------------
+        END - Main Menu
+        -------------------->
+        <div class="content-w">
+          <!--------------------
+          START - Top Bar
+          -------------------->
+          <div class="top-bar color-scheme-bright">
+
+		  
+		 <div class="fancy-selector-w">
+          <div class="fancy-selector-current">
+            <div class="fs-img">
+              <img alt="" src="img/card1.png">
+            </div>
+            <div class="fs-main-info">
+              <div class="fs-name">
+                American Express Platinum
+              </div>
+              <div class="fs-sub">
+                <span>Balance:</span><strong>$5,304</strong>
+              </div>
+            </div>
+            <div class="fs-extra-info">
+              <strong>5476</strong><span>ending</span>
+            </div>
+            <div class="fs-selector-trigger">
+              <i class="os-icon os-icon-arrow-down4"></i>
+            </div>
+          </div>
+          <div class="fancy-selector-options">
+            <div class="fancy-selector-option">
+              <div class="fs-img">
+                <img alt="" src="img/card2.png">
+              </div>
+              <div class="fs-main-info">
+                <div class="fs-name">
+                  American Express Platinum
+                </div>
+                <div class="fs-sub">
+                  <span>Balance:</span><strong>$5,304</strong>
+                </div>
+              </div>
+              <div class="fs-extra-info">
+                <strong>5476</strong><span>ending</span>
+              </div>
+            </div>
+            <div class="fancy-selector-option active">
+              <div class="fs-img">
+                <img alt="" src="img/card1.png">
+              </div>
+              <div class="fs-main-info">
+                <div class="fs-name">
+                  Capital One Venture Card
+                </div>
+                <div class="fs-sub">
+                  <span>Balance:</span><strong>$8,274</strong>
+                </div>
+              </div>
+              <div class="fs-extra-info">
+                <strong>2523</strong><span>ending</span>
+              </div>
+            </div>
+            <div class="fancy-selector-option">
+              <div class="fs-img">
+                <img alt="" src="img/card3.png">
+              </div>
+              <div class="fs-main-info">
+                <div class="fs-name">
+                  CitiBank Preferred Credit
+                </div>
+                <div class="fs-sub">
+                  <span>Balance:</span><strong>$1,202</strong>
+                </div>
+              </div>
+              <div class="fs-extra-info">
+                <strong>6345</strong><span>ending</span>
+              </div>
+            </div>
+            <!-- <div class="fancy-selector-actions text-right">
+              <a class="btn btn-warning" href="#"><i class="os-icon os-icon-ui-22"></i><span>Make Payment</span></a>
+            </div> -->
+          </div>
+        </div>
+
+            <!--------------------
+            START - Top Menu Controls
+            -------------------->
+            <div class="top-menu-controls">
+              <div class="element-search autosuggest-search-activator">
+                <input placeholder="Start typing to search..." type="text">
+              </div>
+              <!--------------------
+              START - Messages Link in secondary top menu
+              -------------------->
+             <!--------------------
+              END - Messages Link in secondary top menu
+              --------------------><!--------------------
+              START - Settings Link in secondary top menu
+              -------------------->
+
+              <!--------------------
+              END - Settings Link in secondary top menu
+              --------------------><!--------------------
+              START - User avatar and menu in secondary top menu
+              -------------------->
+              <div class="logged-user-w">
+                <div class="logged-user-i">
+                  <div class="avatar-w">
+                    <img alt="" src="img/Phillipe.jpg">
+                  </div>
+                  <div class="logged-user-menu color-style-bright">
+                    <div class="logged-user-avatar-info">
+                      <div class="avatar-w">
+                        <img alt="" src="img/Phillipe.jpg">
+                      </div>
+                      <div class="logged-user-info-w">
+                        <div class="logged-user-name">
+                          Phillipe Cloup
+                        </div>
+                        <div class="logged-user-role">
+                          Administrator
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bg-icon">
+                      <i class="os-icon os-icon-wallet-loaded"></i>
+                    </div>
+                    <ul>
+                      <li>
+                        <a href="#"><i class="os-icon os-icon-mail-01"></i><span>Incoming Mail</span></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="os-icon os-icon-user-male-circle2"></i><span>Profile Details</span></a>
+                      </li>
+                      <li>
+                        <a href="logout.php"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--------------------
+              END - User avatar and menu in secondary top menu
+              -------------------->
+            </div>
+            <!--------------------
+            END - Top Menu Controls
+            -------------------->
+          </div>
+          <!--------------------
+          END - Top Bar
+          -------------------->
+          <div class="content-panel-toggler">
+            <i class="os-icon os-icon-grid-squares-22"></i><span>Sidebar</span>
+          </div>
+          <div class="content-i">
+            <div class="content-box">
+			
+			
+			<div class="element-wrapper compact pt-4">
+                <!-- <div class="element-actions">
+                  <a class="btn btn-success btn-sm" href="#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment</span></a>
+                </div> -->
+                <h6 class="element-header">
+                  Mortgage Rates
+                </h6>
+                <div class="element-box-tp">
+
+                </div>
+              </div>
+			   </div>
+
+
+
+
+
+
+
+              <div class="floated-colors-btn" style="display:none">
+                <div class="os-toggler-w">
+                  <div class="os-toggler-i">
+                    <div class="os-toggler-pill"></div>
+                  </div>
+                </div>
+                <span>Dark </span><span>Colors</span>
+              </div>
+              <!--------------------
+              END - Color Scheme Toggler
+              --------------------><!--------------------
+              START - Demo Customizer
+              -------------------->
+              <!--------------------
+              END - Demo Customizer
+              --------------------><!--------------------
+              START - Chat Popup Box
+              -------------------->
+               <!--------------------
+              END - Chat Popup Box
+              -------------------->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="display-type"></div>
+	  
+
+
+
+ 
+	
+   
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/popper.js/dist/umd/popper.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="bower_components/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+    <script src="bower_components/bootstrap-validator/dist/validator.min.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+    <script src="bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="bower_components/editable-table/mindmup-editabletable.js"></script>
+    <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
+    <script src="bower_components/bootstrap/js/dist/util.js"></script>
+    <script src="bower_components/bootstrap/js/dist/alert.js"></script>
+    <script src="bower_components/bootstrap/js/dist/button.js"></script>
+    <script src="bower_components/bootstrap/js/dist/carousel.js"></script>
+    <script src="bower_components/bootstrap/js/dist/collapse.js"></script>
+    <script src="bower_components/bootstrap/js/dist/dropdown.js"></script>
+    <script src="bower_components/bootstrap/js/dist/modal.js"></script>
+    <script src="bower_components/bootstrap/js/dist/tab.js"></script>
+    <script src="bower_components/bootstrap/js/dist/tooltip.js"></script>
+    <script src="bower_components/bootstrap/js/dist/popover.js"></script>
+    <script src="js/demo_customizer.js?version=4.4.0"></script>
+    <script src="js/main.js?version=4.4.0"></script>
+  </body>
+</html>
