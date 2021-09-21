@@ -31,4 +31,4 @@ services:
       - 3080:80
     depends_on:
       - arcadia-frontend
-      - arcadia-backend
+      - backend
