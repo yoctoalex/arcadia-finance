@@ -26,5 +26,6 @@ services:
       - 3083:80          
   nginx:
     image: interestingstorage/arcadia-reverse-proxy:v1
+    pull_policy: always
     ports: 
       - 3080:80
