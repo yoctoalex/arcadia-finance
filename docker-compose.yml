@@ -29,3 +29,6 @@ services:
     pull_policy: always
     ports: 
       - 3080:80
+    depends_on:
+      - arcadia-frontend
+      - arcadia-backend
