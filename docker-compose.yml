@@ -26,6 +26,8 @@ services:
       context: ./app3
     volumes:
       - ./app3/app3/:/var/www/html/app3/
+    ports: 
+      - 3083:80          
   nginx:
     build: 
       context: ./Nginx
