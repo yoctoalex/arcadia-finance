@@ -18,19 +18,19 @@ services:
       - 3082:80    
   money-transfer:
     build: 
-      context: ./app2
+      context: ./money-transfer
     volumes:
-      - ./app2/api/:/var/www/html/api/
+      - ./money-transfer/api/:/var/www/html/api/
   refer-a-friend:
     build: 
-      context: ./app3
+      context: ./refer-a-friend
     volumes:
-      - ./app3/app3/:/var/www/html/app3/
+      - ./refer-a-friend/app3/:/var/www/html/app3/
     ports: 
       - 3083:80          
   nginx:
     build: 
-      context: ./Nginx
+      context: ./nginx-reverse-proxy
     ports: 
       - 3080:80
     depends_on:
