@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerio
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJkb2NrZXIuaW8iOnsidXNlcm5hbWUiOiJpbnRlcmVzdGluZ3N0b3JhZ2UiLCJwYXNzd29yZCI6IjMwZTRjYThmLWEwMzUtNDRkNS1hZDQyLWY5NDg3YjcwMjFiNSIsImF1dGgiOiJhVzUwWlhKbGMzUnBibWR6ZEc5eVlXZGxPak13WlRSallUaG1MV0V3TXpVdE5EUmtOUzFoWkRReUxXWTVORGczWWpjd01qRmlOUT09In19fQ==
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcadia-money-transfer
+spec:
+  type: ClusterIP
+  selector:
+    app: arcadia-money-transfer
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arcadia-money-transfer
+spec:
+  selector:
+    matchLabels:
+      app: arcadia-money-transfer
+  template:
+    metadata:
+      labels:
+        app: arcadia-money-transfer
+    spec:
+      containers:
+        - name: server
+          image: docker.io/interestingstorage/arcadia-money-transfer:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: dockerio   

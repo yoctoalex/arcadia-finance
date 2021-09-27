@@ -1,7 +1,8 @@
 version: '3'
 services:
-  arcadia-frontend:
-    image: interestingstorage/arcadia-frontend:v1
+  frontend:
+    build: 
+      context: ./main
     volumes:
       - ./main/MainApp:/var/www/html/
     ports: 
@@ -9,26 +10,45 @@ services:
     environment:
       PMA_HOST: localhost
   backend:
-    image: interestingstorage/arcadia-backend:v1
+    build: 
+      context: ./backend
     volumes:
       - ./backend/files/:/var/www/html/files/
     ports: 
       - 3082:80    
-  arcadia-money-transfer:
-    image: interestingstorage/arcadia-money-transfer:v1
+  money-transfer:
+    build: 
+      context: ./app2
     volumes:
       - ./app2/api/:/var/www/html/api/
-  arcadia-refer-a-friend:
-    image: interestingstorage/arcadia-refer-a-friend:v1
+  refer-a-friend:
+    build: 
+      context: ./app3
     volumes:
       - ./app3/app3/:/var/www/html/app3/
     ports: 
       - 3083:80          
   nginx:
-    image: interestingstorage/arcadia-reverse-proxy:v1
-    pull_policy: always
+    build: 
+      context: ./Nginx
     ports: 
       - 3080:80
     depends_on:
-      - arcadia-frontend
+      - frontend
       - backend
+  mortgage-fastcgi:
+    build: 
+      context: ./mortgage-calculator
+      dockerfile: phpfpm.Dockerfile
+    volumes:
+      - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/
+  mortgage-nginx:
+    build: 
+      context: ./mortgage-calculator
+      dockerfile: nginx.Dockerfile      
+    volumes:
+      - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/      
+    ports: 
+     - 5080:8080
+    depends_on:
+      - mortgage-fastcgi     
