@@ -13,7 +13,8 @@ services:
     ports: 
       - 80:80
     extra_hosts:
-      - "money-transfer:192.168.32.6"      
+      - "money-transfer:192.168.32.6"
+      - "refer-a-friend:127.0.0.1"      
     depends_on:
       - frontend
       - backend      
