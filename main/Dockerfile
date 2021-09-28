@@ -47,7 +47,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 # to be able to use "nano" with shell on "docker exec -it [CONTAINER ID] bash"
 ENV TERM xterm
 
-#COPY /MainApp/ /var/www/html/
+COPY /MainApp/ /var/www/html/
 
 # Enable apache mods.
 RUN a2enmod php7.2
