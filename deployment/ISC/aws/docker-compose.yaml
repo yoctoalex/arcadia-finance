@@ -1,0 +1,19 @@
+version: '3'
+services:
+  frontend:
+    image: interestingstorage/arcadia-frontend:v1
+    environment:
+      PMA_HOST: localhost
+  backend:
+    image: interestingstorage/arcadia-backend:v1
+    environment:
+      PMA_HOST: localhost    
+  reverse-proxy:
+    image: interestingstorage/arcadia-reverse-proxy:v1
+    ports: 
+      - 80:80
+    extra_hosts:
+      - "money-transfer:192.168.32.6"      
+    depends_on:
+      - frontend
+      - backend      
