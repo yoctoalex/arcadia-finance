@@ -7,14 +7,18 @@ services:
   backend:
     image: interestingstorage/arcadia-backend:v1
     environment:
-      PMA_HOST: localhost    
+      PMA_HOST: localhost
+  refer-a-friend:
+    image: interestingstorage/arcadia-refer-a-friend:v1
+    environment:
+      PMA_HOST: localhost          
   reverse-proxy:
     image: interestingstorage/arcadia-reverse-proxy:v1
     ports: 
       - 80:80
     extra_hosts:
       - "money-transfer:192.168.32.6"
-      - "refer-a-friend:127.0.0.1"      
+      #- "refer-a-friend:127.0.0.1"      
     depends_on:
       - frontend
       - backend      
