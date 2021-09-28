@@ -1,8 +1,10 @@
 version: '3'
 services:
   money-transfer:
+    hostname: money-transfer.internal
     image: interestingstorage/arcadia-money-transfer:v1
     ports: 
       - 80:80     
     extra_hosts:
       - "backend:172.24.10.94"
+    restart: always

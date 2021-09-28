@@ -1,24 +1,25 @@
 version: '3'
 services:
   frontend:
+    hostname: frontend.internal
     image: interestingstorage/arcadia-frontend:v1
     environment:
       PMA_HOST: localhost
+    restart: always
   backend:
+    hostname: backend.internal
     image: interestingstorage/arcadia-backend:v1
     environment:
       PMA_HOST: localhost
-  refer-a-friend:
-    image: interestingstorage/arcadia-refer-a-friend:v1
-    environment:
-      PMA_HOST: localhost          
+    restart: always
   reverse-proxy:
     image: interestingstorage/arcadia-reverse-proxy:v1
     ports: 
       - 80:80
     extra_hosts:
-      - "money-transfer:192.168.32.6"
+      - "money-transfer.internal:192.168.32.6"
       #- "refer-a-friend:127.0.0.1"      
+    restart: always
     depends_on:
       - frontend
       - backend      
