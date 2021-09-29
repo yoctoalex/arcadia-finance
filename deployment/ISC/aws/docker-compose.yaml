@@ -9,8 +9,8 @@ services:
     logging:
         driver: "json-file"
         options:
-            max-file: 5
-            max-size: 10m    
+            max-file: "5"
+            max-size: "10m"
   backend:
     hostname: backend.internal
     image: interestingstorage/arcadia-backend:isc-2021
@@ -20,8 +20,8 @@ services:
     logging:
         driver: "json-file"
         options:
-            max-file: 5
-            max-size: 10m    
+            max-file: "5"
+            max-size: "10m"
   reverse-proxy:
     image: interestingstorage/arcadia-reverse-proxy:isc-2021
     ports: 
@@ -32,8 +32,8 @@ services:
     logging:
         driver: "json-file"
         options:
-            max-file: 5
-            max-size: 10m    
+            max-file: "5"
+            max-size: "10m"
     depends_on:
       - frontend
       - backend      
