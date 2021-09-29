@@ -272,7 +272,7 @@
 
  		$.ajax({
 				type: "GET",
-				timeout:500,
+				timeout:10000,
 				url: "stored_cc_files.php",
 				error: function(xhr, statusText) {$( "#home" ).html("<h4> App3 is not reachable </h4>");},
 				success: function(data){  $( "#home" ).html(data);}
@@ -293,7 +293,7 @@
 		
 			$.ajax({
 				url: 'stored_cc_files.php?delete=yes',
-				timeout:1500,
+				timeout:10000,
 				type: 'GET',
 				success: function (data){			
 			
