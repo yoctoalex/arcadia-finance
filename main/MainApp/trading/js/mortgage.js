@@ -94,16 +94,23 @@ function selectItem(item) {
 }
 
 function fetchPayment() {
+    console.log(currentUnits);
+
     const price = parseFloat($('#mk-input-price').val());
     const down = parseFloat($('#mk-input-down').val());
     const term = terms[currentTerm].term;
     const zip = parseFloat($('#mk-input-zip').val());
 
-    const href = `/mortgage/api/calculate.php?price=${price}&down=${down}&term=${term}&zip=${zip}`
+    let downValue = down;
+    if (currentUnits.trim() === "%") {
+        downValue = parseFloat(down) / 100 * price;
+    }
+
+    const href = `/mortgage/api/calculate.php?price=${price}&down=${downValue}&term=${term}&zip=${zip}`
     fetch(href).then(res => {
         if (res.status === 200) {
             res.json().then(obj => {
-                const monthlyTotal = obj.monthlyTotal;
+                const monthlyTotal = obj.loan;
 
                 $("#loan-amount-value").text("$ " + ((Math.ceil(monthlyTotal * 100)/100).toString()));
                 $("#mk-loan-value").removeClass("mk-hidden");
