@@ -110,7 +110,7 @@ function fetchPayment() {
     fetch(href).then(res => {
         if (res.status === 200) {
             res.json().then(obj => {
-                const monthlyTotal = obj.monthlyTotal;
+                const monthlyTotal = obj.loan;
 
                 $("#loan-amount-value").text("$ " + ((Math.ceil(monthlyTotal * 100)/100).toString()));
                 $("#mk-loan-value").removeClass("mk-hidden");
