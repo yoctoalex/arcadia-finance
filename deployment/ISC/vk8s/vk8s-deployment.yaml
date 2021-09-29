@@ -9,11 +9,11 @@ type: kubernetes.io/dockerconfigjson
 apiVersion: v1
 kind: Service
 metadata:
-  name: arcadia-money-transfer
+  name: arcadia-mortgage-calculator
 spec:
   type: ClusterIP
   selector:
-    app: arcadia-money-transfer
+    app: arcadia-mortgage-calculator
   ports:
     - name: http
       port: 80
@@ -22,21 +22,41 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: arcadia-money-transfer
+  name: arcadia-mortgage-calculator
 spec:
   selector:
     matchLabels:
-      app: arcadia-money-transfer
+      app: arcadia-mortgage-calculator
   template:
     metadata:
       labels:
-        app: arcadia-money-transfer
+        app: arcadia-mortgage-calculator      
     spec:
+      volumes:
+        - name: web-data
+          emptyDir: {}
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "fastcgi"
       containers:
-        - name: server
-          image: docker.io/interestingstorage/arcadia-money-transfer:v1
+        - name: nginx
+          image: docker.io/interestingstorage/arcadia-mortgage-calculator:isc-2021
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          command: ["/bin/sh","-c"]
+          args: ["cp -r /usr/share/nginx/html/* /usr/mnt/web-data/ && nginx -g 'daemon off;'"]
+          volumeMounts:
+            - name: web-data
+              mountPath: /usr/mnt/web-data/       
+        - name: phpfpm
+          image: docker.io/interestingstorage/arcadia-phpfpm:isc-2021
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: web-data
+              mountPath: /usr/share/nginx/html/                   
       imagePullSecrets:
-        - name: dockerio   
+        - name: dockerio

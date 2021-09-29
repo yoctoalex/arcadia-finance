@@ -2,7 +2,7 @@ version: '3.8'
 services:
   refer-a-friend:
     hostname: refer-a-friend.internal
-    image: interestingstorage/arcadia-refer-a-friend:v1
+    image: interestingstorage/arcadia-refer-a-friend:isc-2021
     environment:
       PMA_HOST: localhost  
     ports: 

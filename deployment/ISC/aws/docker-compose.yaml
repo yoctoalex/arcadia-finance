@@ -2,18 +2,18 @@ version: '3.8'
 services:
   frontend:
     hostname: frontend.internal
-    image: interestingstorage/arcadia-frontend:v1
+    image: interestingstorage/arcadia-frontend:isc-2021
     environment:
       PMA_HOST: localhost
     restart: always
   backend:
     hostname: backend.internal
-    image: interestingstorage/arcadia-backend:v1
+    image: interestingstorage/arcadia-backend:isc-2021
     environment:
       PMA_HOST: localhost
     restart: always
   reverse-proxy:
-    image: interestingstorage/arcadia-reverse-proxy:v1
+    image: interestingstorage/arcadia-reverse-proxy:isc-2021
     ports: 
       - 80:80
     extra_hosts:

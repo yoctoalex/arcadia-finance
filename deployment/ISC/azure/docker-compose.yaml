@@ -2,7 +2,7 @@ version: '3.8'
 services:
   money-transfer:
     hostname: money-transfer.internal
-    image: interestingstorage/arcadia-money-transfer:v1
+    image: interestingstorage/arcadia-money-transfer:isc-2021
     ports: 
       - 80:80     
     extra_hosts:
