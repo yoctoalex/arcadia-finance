@@ -8,3 +8,8 @@ services:
     extra_hosts:
       - "backend:172.24.10.94"
     restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 5
+            max-size: 10m    
