@@ -37,6 +37,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
     <link href="bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
     <link href="css/main.css?version=4.4.0" rel="stylesheet">
     <link href="css/additional.css" rel="stylesheet">
+    <link href="css/mortgage.css" rel="stylesheet">
 <link href="icon_fonts_assets/picons-thin/style.css" rel="stylesheet">
 
   </head>
@@ -319,22 +320,134 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
             <i class="os-icon os-icon-grid-squares-22"></i><span>Sidebar</span>
           </div>
           <div class="content-i">
-            <div class="content-box">
-			
-			
-			<div class="element-wrapper compact pt-4">
-                <!-- <div class="element-actions">
-                  <a class="btn btn-success btn-sm" href="#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment</span></a>
-                </div> -->
-                <h6 class="element-header">
-                  Mortgage Rates
-                </h6>
-                <div class="element-box-tp">
 
-                </div>
+          <!-- Mortgage -->
+
+          <div id="mk-container">
+              <div id="mk-waiting">
+                    <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
               </div>
-			   </div>
+            <div id="mk-calc" class="mk-hidden">
+                <div id="loan-amount">
+                    <div class="calc-title">
+                        Your loan amount
+                    </div>
+                    <div class="calc-note">
+                        Purchase price*
+                    </div>
+                    <div class="mk-gray-field">
+                        <div class="mk-left-round mk-units mk-selected-units"><div class="mk-center">$</div></div>
+                        <input id="mk-input-price" type="number" />
+                    </div>
+                     <div class="calc-note">
+                        Down payment*
+                    </div>
+                    <div class="mk-gray-field">
+                        <div id="units-usd" class="mk-left-round mk-units mk-selected-units" onclick="selectUnits(event, '$')"><div class="mk-center">$</div></div>
+                        <div id="units-percent" class="mk-units mk-left-border" onclick="selectUnits(event, '%')"><div class="mk-center">%</div></div>
+                        <input id="mk-input-down" type="number" />
+                    </div>
+                    <div id="mk-loan-inscription" class="calc-note mk-additional-gap mk-hidden">
+                        Loan amount
+                    </div>
+                    <div id="mk-loan-value" class="mk-loan-amount mk-hidden">
+                        <span id="loan-amount-value" /></span>
+                    </div>
+                </div>
+                <div id="mortgage-details">
+                    <div class="calc-title">
+                        Mortgage details
+                    </div>
+                    <div class="calc-note">
+                        Select your mortgage term length
+                    </div>
+                    <div class="mk-gray-field dropdown dropbtn" onclick="showOptions(event)">
+                       <div class="mk-selected-item dropbtn">
+                          <span id="selected-item">Fixed 30 Years</span>
+                        </div>
+                        <div class="dropbtn mk-dropdown-chevron">
+                            <div class="mk-center">
+                            <svg class="dropbtn" width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 2L12 12L22 2" stroke="white" stroke-width="3" stroke-linejoin="round"/>
+                            </svg>
+                            </div>
+                        </div>
+                        <div id="mk-options" class="dropdown-content">
+                            <a onclick="selectItem(0)">Fixed 30 Years</a>
+                            <a onclick="selectItem(1)">Fixed 20 Years</a>
+                            <a onclick="selectItem(2)">Fixed 15 Years</a>
+                          </div>
+                    </div>
+                    <div class="calc-note">
+                        Property ZIP code*
+                    </div>
+                    <div class="mk-gray-field">
+                        <input id="mk-input-zip" type="number" />
+                    </div>
+                    <div class="mk-blue-button mk-additional-gap" onclick="fetchPayment()">
+                        <div class="mk-center">Calculate your monthly payment</div>
+                    </div>
+                </div>
+            </div>
 
+
+            <div id="mk-coming-soon" class="mk-hidden">
+                <table id="table-coming-soon">
+                    <tr>
+                        <td colspan="9" class="cell-coming-soon">
+                            Coming soon
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cell-timer-inscription-margin" />
+                        <td class="cell-timer-inscription">
+                            Days
+                        </td>
+                        <td/>
+                        <td class="cell-timer-inscription">
+                            Hours
+                        </td>
+                        <td/>
+                        <td class="cell-timer-inscription">
+                            Minutes
+                        </td>
+                        <td/>
+                        <td class="cell-timer-inscription">
+                            Seconds
+                        </td>
+                        <td class="cell-timer-inscription-margin" />
+                    </tr>
+                    <tr>
+                        <td />
+                        <td class="cell-timer">
+                            01
+                        </td>
+                         <td class="cell-timer">
+                         :
+                        </td>
+                        <td class="cell-timer">
+                            02
+                        </td>
+                        <td class="cell-timer">
+                           :
+                        </td>
+                        <td class="cell-timer">
+                            59
+                        </td>
+                        <td class="cell-timer">
+                            :
+                            </td>
+                        <td class="cell-timer">
+                            50
+                        </td>
+                        <td />
+                    </tr>
+                </table>
+            </div>
+          </div>
+
+
+          <!-- /Mortgage -->
 
 
 
@@ -405,5 +518,6 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
     <script src="bower_components/bootstrap/js/dist/popover.js"></script>
     <script src="js/demo_customizer.js?version=4.4.0"></script>
     <script src="js/main.js?version=4.4.0"></script>
+    <script type="text/javascript" src="js/mortgage.js"></script>
   </body>
 </html>
