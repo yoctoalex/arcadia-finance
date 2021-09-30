@@ -7,6 +7,7 @@ services:
       - ./main/MainApp:/var/www/html/
     ports: 
       - 3081:80  
+    hostname: frontend.internal
     environment:
       PMA_HOST: localhost
   backend:
@@ -16,18 +17,21 @@ services:
       - ./backend/files/:/var/www/html/files/
     ports: 
       - 3082:80    
+    hostname: backend.internal
   money-transfer:
     build: 
       context: ./money-transfer
     volumes:
       - ./money-transfer/api/:/var/www/html/api/
+    hostname: money-transfer.internal
   refer-a-friend:
     build: 
       context: ./refer-a-friend
     volumes:
       - ./refer-a-friend/app3/:/var/www/html/app3/
     ports: 
-      - 3083:80          
+      - 3083:80
+    hostname: refer-a-friend.internal
   nginx:
     build: 
       context: ./nginx-reverse-proxy
@@ -42,6 +46,7 @@ services:
       dockerfile: phpfpm.Dockerfile
     volumes:
       - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/
+    hostname: fastcgi
   mortgage-nginx:
     build: 
       context: ./mortgage-calculator
@@ -50,5 +55,6 @@ services:
       - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/      
     ports: 
      - 5080:8080
+    hostname: mortgage-nginx.internal
     depends_on:
       - mortgage-fastcgi     
