@@ -1,17 +1,21 @@
 // Close the dropdown if the user clicks outside of it
 let currentTerm = 0;
 let currentUnits = "$";
+let currentPage = "#mk-calc";
 
 const terms = [
     {
+        resMessage: "30-year fixed",
         message: "Fixed 30 Years",
         term: 360
     },
     {
+        resMessage: "20-year fixed",
         message: "Fixed 20 Years",
         term: 240
     },
     {
+        resMessage: "15-year fixed",
         message: "Fixed 15 Years",
         term: 180
     }
@@ -47,22 +51,25 @@ async function fetchWithTimeout(resource, onTimeout, options = {}) {
 
 
 function checkMortgageApi() {
+    console.log(currentPage);
+
     const href = "/mortgage/api/index.php";
     fetchWithTimeout(href, () => {
             $("#mk-waiting").addClass("mk-hidden");
             $("#mk-coming-soon").removeClass("mk-hidden");
-            $("#mk-calc").addClass("mk-hidden");
+            $(currentPage).addClass("mk-hidden");
         },
         {timeout: 5000}).then(res => {
             $("#mk-waiting").addClass("mk-hidden");
 
             if (res.status === 200) {
                 $("#mk-coming-soon").addClass("mk-hidden");
-                $("#mk-calc").removeClass("mk-hidden");
+                $(currentPage).removeClass("mk-hidden");
             }
             else {
                 $("#mk-coming-soon").removeClass("mk-hidden");
                 $("#mk-calc").addClass("mk-hidden");
+                $("#mk-res").addClass("mk-hidden");
             }
         })
 }
@@ -94,7 +101,11 @@ function selectItem(item) {
 }
 
 function fetchPayment() {
-    console.log(currentUnits);
+    currentPage = "#mk-res";
+
+    $('#mk-res').addClass("mk-hidden");
+    $('#mk-calc').addClass("mk-hidden");
+    $('#mk-waiting').removeClass("mk-hidden");
 
     const price = parseFloat($('#mk-input-price').val());
     const down = parseFloat($('#mk-input-down').val());
@@ -108,16 +119,42 @@ function fetchPayment() {
 
     const href = `/mortgage/api/calculate.php?price=${price}&down=${downValue}&term=${term}&zip=${zip}`
     fetch(href).then(res => {
-        if (res.status === 200) {
-            res.json().then(obj => {
-                const monthlyTotal = obj.loan;
+        $('#mk-waiting').addClass("mk-hidden");
+        $('#mk-res').removeClass("mk-hidden");
 
-                $("#loan-amount-value").text("$ " + ((Math.ceil(monthlyTotal * 100)/100).toString()));
-                $("#mk-loan-value").removeClass("mk-hidden");
-                $("#mk-loan-inscription").removeClass("mk-hidden");
+        if (res.status === 200) {
+
+            res.json().then(obj => {
+                console.log(obj);
+
+                const loan = ((Math.ceil(obj.loan * 100)/100))
+                    .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                const interest = ((Math.ceil(obj.monthlyPrincipal * 100)/100))
+                    .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                const taxes = ((Math.ceil(obj.propertyTaxes * 100)/100))
+                    .toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+                const homeownersInsurance = ((Math.ceil(obj.homeownersInsurance * 100)/100))
+                    .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                const monthlyTotal = ((Math.ceil(obj.monthlyTotal * 100)/100))
+                    .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+                $("#res-plan-duration").text(terms[currentTerm].resMessage);
+                $("#res-loan-size").text(loan);
+                $("#res-monthly-payment").text(monthlyTotal);
+                $("#res-monthly-and-interest").text(interest);
+                $("#res-property-taxes").text(taxes);
+                $("#res-insurance").text(homeownersInsurance);
+                $("#res-table-total").text(monthlyTotal);
             })
         }
     })
+}
+
+function recalculate(e) {
+    currentPage = "#mk-calc";
+    $('#mk-res').addClass("mk-hidden");
+    $('#mk-calc').removeClass("mk-hidden");
+    e.stopImmediatePropagation();
 }
 
 checkMortgageApi();

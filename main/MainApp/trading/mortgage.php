@@ -320,9 +320,64 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
           <!-- Mortgage -->
 
           <div id="mk-container">
-              <div id="mk-waiting">
-                    <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              </div>
+            <div id="mk-waiting">
+                <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div id="mk-res" class="mk-hidden">
+                <div id="res-title" class="calc-title">
+                    Your monthly payment for a
+                    <b><span id="res-plan-duration">30-year fixed</span></b>
+                    rate loan of
+                    <span id="res-loan-size">$400,000</span>
+                    could be
+                </div>
+                <div id="res-monthly-payment">
+                    $2,519.24
+                </div>
+
+                <div id="res-table-container">
+                    <table id="res-table">
+                        <tbody>
+                            <tr class="res-table-row">
+                                <td class="res-table-title">
+                                    Monthly Principal & Interest
+                                </td>
+                                <td class="res-table-number">
+                                    <span id="res-monthly-and-interest">$1,659.57</span>
+                                </td>
+                            </tr>
+                            <tr class="res-table-row">
+                                <td class="res-table-title">
+                                    Property taxes
+                                </td>
+                                <td class="res-table-number">
+                                    <span id="res-property-taxes">$693.00</span>
+                                </td>
+                            </tr>
+                            <tr class="res-table-row">
+                                <td class="res-table-title">
+                                    Homeowners Insurance
+                                </td>
+                                <td class="res-table-number">
+                                    <span id="res-insurance">$167.67</span>
+                                </td>
+                            </tr>
+                            <tr class="res-table-total">
+                                <td class="res-table-title">
+                                    Total monthly payment
+                                </td>
+                                <td class="res-table-number">
+                                    <span id="res-table-total">$2,519.24</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="res-controls">
+                    <div id="res-recalculate-button" onclick="recalculate()">Recalculate</div>
+                </div>
+            </div>
             <div id="mk-calc" class="mk-hidden">
                 <div id="loan-amount">
                     <div class="calc-title">
@@ -380,7 +435,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
                     <div class="mk-gray-field">
                         <input id="mk-input-zip" type="number" />
                     </div>
-                    <div class="mk-blue-button mk-additional-gap" onclick="fetchPayment()">
+                    <div class="mk-blue-button mk-additional-gap" onclick="fetchPayment(event)">
                         <div class="mk-center">Calculate your monthly payment</div>
                     </div>
                 </div>
