@@ -13,3 +13,13 @@ services:
         options:
             max-file: "5"
             max-size: "10m"
+  test-tool:
+    image: interestingstorage/arcadia-connectivity-tool:isc-2021
+    ports:
+      - 8081:8080
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"

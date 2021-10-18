@@ -1,0 +1,9 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./test-tool/
+    ports:
+      - 8080:8080
+#    volumes:
+#      - ./test/:/usr/share/nginx/html/:ro
