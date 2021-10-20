@@ -2,6 +2,7 @@
 let currentTerm = 0;
 let currentUnits = "$";
 let currentPage = "#mk-calc";
+let countDownTimer;
 
 const terms = [
     {
@@ -33,6 +34,44 @@ window.onclick = function(event) {
         }
     }
 }
+
+function startCountDown() {
+    if (countDownTimer)
+        return;
+
+    let countDownDate = new Date();
+    countDownDate.setDate(countDownDate.getDate() + 2);
+    countDownDate = countDownDate.getTime();
+
+    // Update the count down every 1 second
+    countDownTimer = setInterval(function() {
+        // Get today's date and time
+        const now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        const distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="demo"
+        document.getElementById("cell-days").innerHTML = days.toString();
+        document.getElementById("cell-hrs").innerHTML = hours.toString();
+        document.getElementById("cell-mins").innerHTML = minutes.toString();
+        document.getElementById("cell-secs").innerHTML = seconds.toString();
+
+        // If the count down is over, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+}
+
+
 async function fetchWithTimeout(resource, onTimeout, options = {}) {
     const { timeout = 8000 } = options;
 
@@ -51,15 +90,15 @@ async function fetchWithTimeout(resource, onTimeout, options = {}) {
 
 
 function checkMortgageApi() {
-    console.log(currentPage);
-
     const href = "/mortgage/api/index.php";
     fetchWithTimeout(href, () => {
             $("#mk-waiting").addClass("mk-hidden");
             $("#mk-coming-soon").removeClass("mk-hidden");
             $(currentPage).addClass("mk-hidden");
+            clearInterval(countDownTimer);
         },
         {timeout: 5000}).then(res => {
+            startCountDown();
             $("#mk-waiting").addClass("mk-hidden");
 
             if (res.status === 200) {

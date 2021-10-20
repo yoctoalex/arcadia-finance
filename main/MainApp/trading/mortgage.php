@@ -470,26 +470,26 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
                     </tr>
                     <tr>
                         <td />
-                        <td class="cell-timer">
-                            01
+                        <td class="cell-numbers cell-timer" id="cell-days">
+                            --
                         </td>
                          <td class="cell-timer">
                          :
                         </td>
-                        <td class="cell-timer">
-                            02
+                        <td class="cell-numbers cell-timer" id="cell-hrs">
+                            --
                         </td>
                         <td class="cell-timer">
                            :
                         </td>
-                        <td class="cell-timer">
-                            59
+                        <td class="cell-numbers cell-timer" id="cell-mins">
+                            --
                         </td>
                         <td class="cell-timer">
                             :
                             </td>
-                        <td class="cell-timer">
-                            50
+                        <td class="cell-numbers cell-timer" id="cell-secs">
+                            --
                         </td>
                         <td />
                     </tr>

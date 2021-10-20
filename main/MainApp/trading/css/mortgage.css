@@ -136,6 +136,11 @@
     font-size: 96px;
 }
 
+.cell-numbers {
+    width: 180px;
+    text-align: center;
+}
+
 #mk-calc {
     display: flex;
     position: relative;
