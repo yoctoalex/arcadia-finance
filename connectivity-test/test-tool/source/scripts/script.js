@@ -1,3 +1,6 @@
+let values = [];
+const avgWindow = 20;
+
 (function(){
     var opts = {
         angle: 0.35,
@@ -25,7 +28,7 @@
     gauge.animationSpeed = 16;
     gauge.set(0);
 
-    const updateColor = (num) => {
+    const getColor = (num) => {
         var color = '#24b314';
         if (num > 300) {
             color = '#fbe4a0';
@@ -33,6 +36,12 @@
         if (num > 500) {
             color = '#e65252';
         }
+
+        return color;
+    }
+
+    const updateColor = (num) => {
+        var color = getColor(num);
 
         const opts = {
             angle: 0.35,
@@ -74,9 +83,46 @@
             console.log(err);
         }
 
-        gauge.set(val);
-        document.getElementById("preview-textfield").style.setProperty("--num", val);
-        updateColor(val);
+        values.push(val);
+        if (values.length > avgWindow) {
+            values = values.slice(values.length - avgWindow, values.length);
+        }
+        const current = Math.ceil(values.reduce((r, v) => r + v, 0) / values.length);
+
+        gauge.set(current);
+        document.getElementById("preview-textfield").style.setProperty("--num", current);
+        updateColor(current);
+
+        if (values.length > 0) {
+            const arr = values.length < avgWindow
+                ? new Array(avgWindow - values.length).fill(-1).concat(values)
+                : values;
+
+            $('#graph').simpleChart({
+                title: {
+                    text: '',
+                    align: 'center'
+                },
+                type: 'column',
+                layout: {
+                    width: '100%',
+                    height: '100%'
+                },
+                item: {
+                    label: arr.map(x => ""),
+                    value: arr,
+                    outputValue: arr.map(x => x === -1 ? " " : `${x} ms`),
+                    color: arr.map(x => x === -1 ? "transparent" : getColor(x)),
+                    prefix: '',
+                    suffix: '',
+                    render: {
+                        margin: 0.2,
+                        size: 'relative'
+                    }
+                }
+            });
+        }
+
         setTimeout(testConnection, 2000);
     };
 
