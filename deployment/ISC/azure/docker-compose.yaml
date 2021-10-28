@@ -6,7 +6,7 @@ services:
     ports: 
       - 80:80     
     extra_hosts:
-      - "backend:172.24.10.94"
+      - "backend:172.24.10.168"
     restart: always
     logging:
         driver: "json-file"
