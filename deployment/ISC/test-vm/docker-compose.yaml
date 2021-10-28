@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  postman:
+    image: interestingstorage/arcadia-nua-api:isc-2021-postman
+    environment:
+      - BASE_URL=https://transaction-api.arcadia.volterra.demomix.online
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
