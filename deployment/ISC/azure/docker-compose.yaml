@@ -27,7 +27,7 @@ services:
   transaction-api:
     image: docker.io/interestingstorage/arcadia-nua-api:isc-2021
     ports: 
-      - 8082:80
+      - 8082:8080
     restart: always
     logging:
         driver: "json-file"
