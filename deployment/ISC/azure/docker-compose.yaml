@@ -23,3 +23,15 @@ services:
       options:
         max-file: "5"
         max-size: "10m"
+
+  transaction-api:
+    image: docker.io/interestingstorage/arcadia-nua-api:isc-2021
+    ports: 
+      - 8082:80
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
+  
