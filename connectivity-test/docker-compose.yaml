@@ -5,5 +5,5 @@ services:
       context: ./test-tool/
     ports:
       - 8080:8080
-#    volumes:
-#      - ./test/:/usr/share/nginx/html/:ro
+    volumes:
+      - ./test-tool/source/:/usr/share/nginx/html/:ro

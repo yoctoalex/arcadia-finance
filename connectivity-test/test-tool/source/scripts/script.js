@@ -9,8 +9,8 @@
             color: '#000000'
         },
         fontSize: 40,
-        limitMax: false,
-        limitMin: false,
+        limitMax: true,
+        limitMin: true,
         colorStart: '#24b314',
         colorStop: '#24b314',
         strokeColor: '#EEEEEE',
@@ -44,8 +44,8 @@
                 color: '#000000'
             },
             fontSize: 40,
-            limitMax: false,
-            limitMin: false,
+            limitMax: true,
+            limitMin: true,
             colorStart: color,
             colorStop: color,
             strokeColor: '#EEEEEE',
@@ -54,24 +54,30 @@
         }
         gauge.setOptions(opts);
     }
+    const getData = (ajaxurl) => {
+        return $.ajax({
+            url: ajaxurl,
+            type: 'GET',
+        });
+    };
 
     const testConnection = async () => {
-        const URL = "assets/mortgage-calc-bk.png";
+        const URL = "assets/image1.jpg";
         const start_time = new Date().getTime();
         let time1 = performance.now();
-        const data = await fetch(URL + "?dummy=" + start_time)
-            .catch((er) => {
-                game_log(er.message);
-            })
-            .then((response) => {
-                const test = response.text
-        });
-        let val = Math.ceil(performance.now() - time1);
+        let val = 0;
+
+        try {
+            const res = await getData(URL + "?dummy=" + start_time)
+            val = Math.ceil(performance.now() - time1);
+        } catch(err) {
+            console.log(err);
+        }
+
         gauge.set(val);
         document.getElementById("preview-textfield").style.setProperty("--num", val);
-        setTimeout(testConnection, 2000);
         updateColor(val);
-
+        setTimeout(testConnection, 2000);
     };
 
     const extractHostname = (url) => {
