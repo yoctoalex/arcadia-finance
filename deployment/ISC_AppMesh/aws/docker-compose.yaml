@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  refer-a-friend:
+    hostname: refer-a-friend.internal
+    image: interestingstorage/arcadia-refer-a-friend:isc-2021
+    environment:
+      PMA_HOST: localhost  
+    ports: 
+      - 80:80              
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
