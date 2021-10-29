@@ -35,6 +35,12 @@ window.onclick = function(event) {
     }
 }
 
+function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
+
 function startCountDown() {
     if (countDownTimer)
         return;
@@ -58,10 +64,10 @@ function startCountDown() {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Output the result in an element with id="demo"
-        document.getElementById("cell-days").innerHTML = days.toString();
-        document.getElementById("cell-hrs").innerHTML = hours.toString();
-        document.getElementById("cell-mins").innerHTML = minutes.toString();
-        document.getElementById("cell-secs").innerHTML = seconds.toString();
+        document.getElementById("cell-days").innerHTML = pad(days, 2);
+        document.getElementById("cell-hrs").innerHTML = pad(hours, 2);
+        document.getElementById("cell-mins").innerHTML = pad(minutes, 2);
+        document.getElementById("cell-secs").innerHTML = pad(seconds, 2);
 
         // If the count down is over, write some text
         if (distance < 0) {
@@ -95,13 +101,14 @@ function checkMortgageApi() {
             $("#mk-waiting").addClass("mk-hidden");
             $("#mk-coming-soon").removeClass("mk-hidden");
             $(currentPage).addClass("mk-hidden");
-            clearInterval(countDownTimer);
+            startCountDown();
         },
         {timeout: 5000}).then(res => {
-            startCountDown();
             $("#mk-waiting").addClass("mk-hidden");
 
             if (res.status === 200) {
+                clearInterval(countDownTimer);
+                countDownTimer = undefined;
                 $("#mk-coming-soon").addClass("mk-hidden");
                 $(currentPage).removeClass("mk-hidden");
             }
@@ -109,6 +116,7 @@ function checkMortgageApi() {
                 $("#mk-coming-soon").removeClass("mk-hidden");
                 $("#mk-calc").addClass("mk-hidden");
                 $("#mk-res").addClass("mk-hidden");
+                startCountDown();
             }
         })
 }
@@ -162,10 +170,7 @@ function fetchPayment() {
         $('#mk-res').removeClass("mk-hidden");
 
         if (res.status === 200) {
-
             res.json().then(obj => {
-                console.log(obj);
-
                 const loan = ((Math.ceil(obj.loan * 100)/100))
                     .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
                 const interest = ((Math.ceil(obj.monthlyPrincipal * 100)/100))
