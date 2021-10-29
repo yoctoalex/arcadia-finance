@@ -13,3 +13,13 @@ services:
         options:
             max-file: "5"
             max-size: "10m"
+  mortgage:
+    image: interestingstorage/arcadia-mortgage-calculator:isc-2021-appmesh
+    ports: 
+      - 8080:8080
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
