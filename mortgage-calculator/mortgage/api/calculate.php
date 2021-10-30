@@ -1,5 +1,7 @@
 <?php
     header("Access-Control-Allow-Origin: *");
+    header('Access-Control-Allow-Methods: GET, POST');
+    header("Access-Control-Allow-Headers: X-Requested-With");
     header('Content-Type: application/json; charset=utf-8');
     // http://localhost:5080/mortgage/api/calculate.php?price=200000&down=100000&term=360&zip=98034
     class MortgageResult {
@@ -141,10 +143,10 @@
     }
 
     $mortgageResult->interestRate = getInterestRate($mortgageResult->zip);
-    $mortgageResult->monthlyPrincipal = calculateMonthlyPrincipal($mortgageResult->loan, $mortgageResult->interestRate, $mortgageResult->term);
+    $mortgageResult->monthlyPrincipal = round(calculateMonthlyPrincipal($mortgageResult->loan, $mortgageResult->interestRate, $mortgageResult->term), 2);
     
-    $mortgageResult->propertyTaxes = $mortgageResult->totalPrice * getPropertyTaxRate($mortgageResult->zip) / 12;
-    $mortgageResult->homeownersInsurance = $mortgageResult->totalPrice * getInsuranceRate($mortgageResult->zip) / 12;
+    $mortgageResult->propertyTaxes = round($mortgageResult->totalPrice * getPropertyTaxRate($mortgageResult->zip) / 12, 2);
+    $mortgageResult->homeownersInsurance = round($mortgageResult->totalPrice * getInsuranceRate($mortgageResult->zip) / 12, 2);
     
     $mortgageResult->monthlyTotal = $mortgageResult->monthlyPrincipal + $mortgageResult->homeownersInsurance + $mortgageResult->propertyTaxes;
 
