@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  refer-a-friend:
+    hostname: refer-a-friend.internal
+    image: interestingstorage/arcadia-refer-a-friend:isc-2021
+    environment:
+      PMA_HOST: localhost  
+    ports: 
+      - 80:80              
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
+  mortgage:
+    image: interestingstorage/arcadia-mortgage-calculator:isc-2021-appmesh
+    ports: 
+      - 8080:8080
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
+  fastcgi:
+    image: interestingstorage/arcadia-phpfpm:vk8s-isc-2021-appmesh
+    restart: always
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"

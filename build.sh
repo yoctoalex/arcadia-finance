@@ -24,10 +24,29 @@ docker tag arcadia-reverse-proxy:isc-2021 interestingstorage/arcadia-reverse-pro
 docker push interestingstorage/arcadia-reverse-proxy:isc-2021
 
 cd ../mortgage-calculator
-docker build --tag arcadia-mortgage-calculator:isc-2021 -f nginx.Dockerfile  .
-docker tag arcadia-mortgage-calculator:isc-2021 interestingstorage/arcadia-mortgage-calculator:isc-2021
-docker push interestingstorage/arcadia-mortgage-calculator:isc-2021
+docker build --tag arcadia-mortgage-calculator:vk8s-isc-2021 -f nginx.Dockerfile  .
+docker tag arcadia-mortgage-calculator:vk8s-isc-2021 interestingstorage/arcadia-mortgage-calculator:vk8s-isc-2021
+docker push interestingstorage/arcadia-mortgage-calculator:vk8s-isc-2021
 
-docker build --tag arcadia-phpfpm:isc-2021 -f phpfpm.Dockerfile .
-docker tag arcadia-phpfpm:isc-2021 interestingstorage/arcadia-phpfpm:isc-2021
-docker push interestingstorage/arcadia-phpfpm:isc-2021
+docker build --tag arcadia-phpfpm:vk8s-isc-2021 -f phpfpm.Dockerfile .
+docker tag arcadia-phpfpm:vk8s-isc-2021 interestingstorage/arcadia-phpfpm:vk8s-isc-2021
+docker push interestingstorage/arcadia-phpfpm:vk8s-isc-2021
+
+cd ../openbanking
+docker build -f Dockerfile.openbanking --tag arcadia-openbanking:isc-2021 .
+docker tag arcadia-openbanking:isc-2021 interestingstorage/arcadia-openbanking:isc-2021
+docker push interestingstorage/arcadia-openbanking:isc-2021
+
+docker build -f Dockerfile.nuapay --tag arcadia-nua-api:isc-2021 .
+docker tag arcadia-nua-api:isc-2021 interestingstorage/arcadia-nua-api:isc-2021
+docker push interestingstorage/arcadia-nua-api:isc-2021
+
+# postman tool for api
+docker build -f Dockerfile.postman --tag arcadia-nua-api:isc-2021-postman .
+docker tag arcadia-nua-api:isc-2021-postman interestingstorage/arcadia-nua-api:isc-2021-postman
+docker push interestingstorage/arcadia-nua-api:isc-2021-postman
+
+cd ../connectivity-test/test-tool
+docker build -f Dockerfile --tag arcadia-connectivity-tool:isc-2021 .
+docker tag arcadia-connectivity-tool:isc-2021 interestingstorage/arcadia-connectivity-tool:isc-2021
+docker push interestingstorage/arcadia-connectivity-tool:isc-2021
