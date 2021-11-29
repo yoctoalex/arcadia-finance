@@ -36,27 +36,69 @@ spec:
         - name: web-data
           emptyDir: {}
       hostAliases:
-        - ip: "127.0.0.1"
-          hostnames:
-            - "fastcgi"
+        # - ip: "127.0.0.1"
+        #   hostnames:
+        #     - "fastcgi"
       containers:
         - name: nginx
-          image: docker.io/interestingstorage/arcadia-mortgage-calculator:isc-2021
+          image: docker.io/interestingstorage/arcadia-mortgage-calculator:vk8s-isc-2021
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           command: ["/bin/sh","-c"]
-          args: ["cp -r /usr/share/nginx/html/* /usr/mnt/web-data/ && nginx -g 'daemon off;'"]
+          args: ["cp -r /usr/share/nginx/html/* /mnt/web/web-data/ && nginx -g 'daemon off;'"]
           volumeMounts:
             - name: web-data
-              mountPath: /usr/mnt/web-data/       
+              mountPath: /mnt/web/web-data/       
         - name: phpfpm
-          image: docker.io/interestingstorage/arcadia-phpfpm:isc-2021
+          image: docker.io/interestingstorage/arcadia-phpfpm:vk8s-isc-2021
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
           volumeMounts:
             - name: web-data
-              mountPath: /usr/share/nginx/html/                   
+              mountPath: /mnt/web/web-data/                
+      imagePullSecrets:
+        - name: dockerio
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-tool
+spec:
+  type: ClusterIP
+  selector:
+    app: test-tool
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-tool
+spec:
+  selector:
+    matchLabels:
+      app: test-tool
+  template:
+    metadata:
+      labels:
+        app: test-tool
+    spec:
+      volumes:
+        - name: web-data
+          emptyDir: {}
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "fastcgi"
+      containers:
+        - name: nginx
+          image: docker.io/interestingstorage/arcadia-connectivity-tool:isc-2021
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
       imagePullSecrets:
         - name: dockerio

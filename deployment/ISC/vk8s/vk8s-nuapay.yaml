@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerio
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJkb2NrZXIuaW8iOnsidXNlcm5hbWUiOiJpbnRlcmVzdGluZ3N0b3JhZ2UiLCJwYXNzd29yZCI6IjMwZTRjYThmLWEwMzUtNDRkNS1hZDQyLWY5NDg3YjcwMjFiNSIsImF1dGgiOiJhVzUwWlhKbGMzUnBibWR6ZEc5eVlXZGxPak13WlRSallUaG1MV0V3TXpVdE5EUmtOUzFoWkRReUxXWTVORGczWWpjd01qRmlOUT09In19fQ==
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcadia-transaction-api
+spec:
+  type: ClusterIP
+  selector:
+    app: arcadia-transaction-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arcadia-transaction-api
+spec:
+  selector:
+    matchLabels:
+      app: arcadia-transaction-api
+  template:
+    metadata:
+      labels:
+        app: arcadia-transaction-api
+    spec:
+      containers:
+        - name: api
+          image: docker.io/interestingstorage/arcadia-nua-api:isc-2021
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: dockerio

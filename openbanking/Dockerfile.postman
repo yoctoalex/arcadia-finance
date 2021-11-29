@@ -1,0 +1,18 @@
+FROM node:14 as nodebuilder
+
+ARG BASE_URL=https://openbanking.f5.volt-demo.online
+ENV BASE_URL $BASE_URL
+
+RUN mkdir -p /usr/share/www
+WORKDIR /usr/share/www
+
+RUN npm install -g openapi-to-postmanv2
+RUN npm install -g newman
+
+COPY ./api ./api
+COPY ./entrypoint.sh ./entrypoint.sh
+# https://github.com/postmanlabs/openapi-to-postman
+
+
+
+ENTRYPOINT ["/bin/bash", "/usr/share/www/entrypoint.sh"]

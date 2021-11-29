@@ -141,10 +141,10 @@
     }
 
     $mortgageResult->interestRate = getInterestRate($mortgageResult->zip);
-    $mortgageResult->monthlyPrincipal = calculateMonthlyPrincipal($mortgageResult->loan, $mortgageResult->interestRate, $mortgageResult->term);
+    $mortgageResult->monthlyPrincipal = round(calculateMonthlyPrincipal($mortgageResult->loan, $mortgageResult->interestRate, $mortgageResult->term), 2);
     
-    $mortgageResult->propertyTaxes = $mortgageResult->totalPrice * getPropertyTaxRate($mortgageResult->zip) / 12;
-    $mortgageResult->homeownersInsurance = $mortgageResult->totalPrice * getInsuranceRate($mortgageResult->zip) / 12;
+    $mortgageResult->propertyTaxes = round($mortgageResult->totalPrice * getPropertyTaxRate($mortgageResult->zip) / 12, 2);
+    $mortgageResult->homeownersInsurance = round($mortgageResult->totalPrice * getInsuranceRate($mortgageResult->zip) / 12, 2);
     
     $mortgageResult->monthlyTotal = $mortgageResult->monthlyPrincipal + $mortgageResult->homeownersInsurance + $mortgageResult->propertyTaxes;
 
