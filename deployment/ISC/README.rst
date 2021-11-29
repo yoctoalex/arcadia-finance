@@ -6,6 +6,10 @@ Prerequisites
 3. Azure VM and connected as a Site
 4. VMWare VM and connected as a Site
 
+Architecture reference:
+
+.. image:: volterra_athena.png
+
 Azure VM configuration
 ----------------------
 
