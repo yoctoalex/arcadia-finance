@@ -10,4 +10,4 @@ COPY ./api ./api
 EXPOSE 8080
 
 ENTRYPOINT ["./node_modules/.bin/open-api-mocker"]
-CMD ["-s", "./api/payment-initiation-openapi.yaml", "-p", "8080"]
+CMD ["-s", "./api/openbanking.json", "-p", "8080"]
