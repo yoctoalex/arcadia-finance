@@ -13,7 +13,7 @@ function authenticate() {
 		echo '
 			<div class="element-wrapper compact">
 				<h6 class="element-header">
-				  Last Transactions
+				  Investment Transactions
 				</h6>
 				<div class="element-box-tp">
 				  <table class="table table-clean">

@@ -4,48 +4,48 @@
 	"symbol":"FFIV",
 	"qty":"52",
 	"price":"$5.858",
-	"date":"12.12.2018"
+	"date":"12.01.2024"
 }, 
 {
 	"name":"Microsoft",
 	"symbol":"MSFT",
 	"qty":"10",
 	"price":"$5.858",
-	"date":"12.12.2018"
+	"date":"12.01.2024"
 }, 
 {
 	"name":"Microsoft",
 	"symbol":"MSFT",
 	"qty":"23",
 	"price":"$5.858",
-	"date":"14.12.2018"
+	"date":"14.01.2024"
 }, 
 {
 	"name":"Amazon",
 	"symbol":"AMZN",
 	"qty":"77",
 	"price":"$5.858",
-	"date":"15.12.2018"
+	"date":"15.01.2024"
 }, 
 {
 	"name":"Google",
 	"symbol":"GOOGL",
 	"qty":"52",
 	"price":"$5.858",
-	"date":"18.12.2018"
+	"date":"18.01.2024"
 }, 
 {
 	"name":"F5 Networks",
 	"symbol":"FFIV",
 	"qty":"44",
 	"price":"$5.858",
-	"date":"22.12.2018"
+	"date":"19.01.2024"
 }, 
 {
 	"name":"Google",
 	"symbol":"GOOGL",
 	"qty":"128",
 	"price":"$5.858",
-	"date":"22.12.2018"
+	"date":"19.01.2024"
 }
 ]

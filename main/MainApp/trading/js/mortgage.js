@@ -96,7 +96,7 @@ async function fetchWithTimeout(resource, onTimeout, options = {}) {
 
 
 function checkMortgageApi() {
-    const href = "https://calculator.arcadia.volterra.demomix.online/mortgage/api/index.php";
+    const href = "https://calculator.arcadia.f5-cloud-demo.com/mortgage/api/index.php";
     fetchWithTimeout(href, () => {
             $("#mk-waiting").addClass("mk-hidden");
             $("#mk-coming-soon").removeClass("mk-hidden");
@@ -164,7 +164,7 @@ function fetchPayment() {
         downValue = parseFloat(down) / 100 * price;
     }
 
-    const href = `https://calculator.arcadia.volterra.demomix.online/mortgage/api/calculate.php?price=${price}&down=${downValue}&term=${term}&zip=${zip}`
+    const href = `https://calculator.arcadia.f5-cloud-demo.com/mortgage/api/calculate.php?price=${price}&down=${downValue}&term=${term}&zip=${zip}`
     fetch(href).then(res => {
         $('#mk-waiting').addClass("mk-hidden");
         $('#mk-res').removeClass("mk-hidden");
