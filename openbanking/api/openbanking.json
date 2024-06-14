@@ -1930,419 +1930,486 @@
     }
   },
   "components": {
-    "schemas": {
-      "BanksResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Bank"
+
+      "schemas": {
+        "BanksResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Bank"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "BankDetailsResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          }
-        }
-      },
-      "PaymentsResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Payment"
+        },
+        "BankDetailsResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for the bank",
+              "x-faker": "random.uuid"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the bank",
+              "x-faker": "company.companyName"
+            },
+            "countryCode": {
+              "type": "string",
+              "description": "Country code of the bank",
+              "x-faker": "address.countryCode"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "Payment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "recipient": {
-            "$ref": "#/components/schemas/Recipient"
-          }
-        }
-      },
-      "RefundsResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Refund"
+        },
+        "PaymentsResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "Refund": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "status": {
-            "type": "string"
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "HistoryResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/History"
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "amount": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "currency": {
+              "type": "string",
+              "x-faker": "finance.currencyCode"
+            },
+            "status": {
+              "type": "string",
+              "x-faker": "random.word"
+            },
+            "creationDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.past"
+            },
+            "recipient": {
+              "$ref": "#/components/schemas/Recipient"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "History": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "Page": {
-        "type": "object",
-        "properties": {
-          "number": {
-            "type": "integer"
-          },
-          "size": {
-            "type": "integer"
-          },
-          "totalElements": {
-            "type": "integer"
-          },
-          "totalPages": {
-            "type": "integer"
-          }
-        }
-      },
-      "AccountRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "AccountResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          }
-        }
-      },
-      "AccountsResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountResponse"
+        },
+        "RefundsResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Refund"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "PaymentRequest": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "recipient": {
-            "$ref": "#/components/schemas/Recipient"
-          }
-        }
-      },
-      "PaymentResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "RefundRequest": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "reason": {
-            "type": "string"
-          }
-        }
-      },
-      "RefundResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "Recipient": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "accountNumber": {
-            "type": "string"
-          },
-          "bankCode": {
-            "type": "string"
-          }
-        }
-      },
-      "TransactionRequest": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        }
-      },
-      "TransactionResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "TransactionsResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TransactionResponse"
+        },
+        "Refund": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "amount": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "status": {
+              "type": "string",
+              "x-faker": "random.word"
+            },
+            "creationDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.past"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "BalanceResponse": {
-        "type": "object",
-        "properties": {
-          "balance": {
-            "type": "number",
-            "format": "double"
-          },
-          "currency": {
-            "type": "string"
-          }
-        }
-      },
-      "UserProfileResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          }
-        }
-      },
-      "UserProfileRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          }
-        }
-      },
-      "UserSettingsResponse": {
-        "type": "object",
-        "properties": {
-          "language": {
-            "type": "string"
-          },
-          "timezone": {
-            "type": "string"
-          }
-        }
-      },
-      "UserSettingsRequest": {
-        "type": "object",
-        "properties": {
-          "language": {
-            "type": "string"
-          },
-          "timezone": {
-            "type": "string"
-          }
-        }
-      },
-      "StatementsResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StatementResponse"
+        },
+        "HistoryResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/History"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
             }
-          },
-          "page": {
-            "$ref": "#/components/schemas/Page"
           }
-        }
-      },
-      "StatementRequest": {
-        "type": "object",
-        "properties": {
-          "startDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time"
+        },
+        "History": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-faker": "random.word"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.past"
+            }
           }
-        }
-      },
-      "StatementResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "generatedDate": {
-            "type": "string",
-            "format": "date-time"
+        },
+        "Page": {
+          "type": "object",
+          "properties": {
+            "number": {
+              "type": "integer",
+              "x-faker": "random.number"
+            },
+            "size": {
+              "type": "integer",
+              "x-faker": "random.number"
+            },
+            "totalElements": {
+              "type": "integer",
+              "x-faker": "random.number"
+            },
+            "totalPages": {
+              "type": "integer",
+              "x-faker": "random.number"
+            }
+          }
+        },
+        "AccountRequest": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "x-faker": "name.findName"
+            },
+            "email": {
+              "type": "string",
+              "x-faker": "internet.email"
+            },
+            "password": {
+              "type": "string",
+              "x-faker": "internet.password"
+            }
+          }
+        },
+        "AccountResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "name": {
+              "type": "string",
+              "x-faker": "name.findName"
+            },
+            "email": {
+              "type": "string",
+              "x-faker": "internet.email"
+            }
+          }
+        },
+        "AccountsResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/AccountResponse"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
+            }
+          }
+        },
+        "PaymentRequest": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "currency": {
+              "type": "string",
+              "x-faker": "finance.currencyCode"
+            },
+            "recipient": {
+              "$ref": "#/components/schemas/Recipient"
+            }
+          }
+        },
+        "PaymentResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "status": {
+              "type": "string",
+              "x-faker": "random.word"
+            }
+          }
+        },
+        "RefundRequest": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "reason": {
+              "type": "string",
+              "x-faker": "lorem.sentence"
+            }
+          }
+        },
+        "RefundResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "status": {
+              "type": "string",
+              "x-faker": "random.word"
+            }
+          }
+        },
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "x-faker": "random.word"
+            },
+            "message": {
+              "type": "string",
+              "x-faker": "lorem.sentence"
+            }
+          }
+        },
+        "Recipient": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "x-faker": "name.findName"
+            },
+            "accountNumber": {
+              "type": "string",
+              "x-faker": "finance.account"
+            },
+            "bankCode": {
+              "type": "string",
+              "x-faker": "finance.bic"
+            }
+          }
+        },
+        "TransactionRequest": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "currency": {
+              "type": "string",
+              "x-faker": "finance.currencyCode"
+            },
+            "description": {
+              "type": "string",
+              "x-faker": "lorem.sentence"
+            }
+          }
+        },
+        "TransactionResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "amount": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "currency": {
+              "type": "string",
+              "x-faker": "finance.currencyCode"
+            },
+            "status": {
+              "type": "string",
+              "x-faker": "random.word"
+            }
+          }
+        },
+        "TransactionsResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/TransactionResponse"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
+            }
+          }
+        },
+        "BalanceResponse": {
+          "type": "object",
+          "properties": {
+            "balance": {
+              "type": "number",
+              "format": "double",
+              "x-faker": "finance.amount"
+            },
+            "currency": {
+              "type": "string",
+              "x-faker": "finance.currencyCode"
+            }
+          }
+        },
+        "UserProfileResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "name": {
+              "type": "string",
+              "x-faker": "name.findName"
+            },
+            "email": {
+              "type": "string",
+              "x-faker": "internet.email"
+            }
+          }
+        },
+        "UserProfileRequest": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "x-faker": "name.findName"
+            },
+            "email": {
+              "type": "string",
+              "x-faker": "internet.email"
+            }
+          }
+        },
+        "UserSettingsResponse": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "string",
+              "x-faker": "random.locale"
+            },
+            "timezone": {
+              "type": "string",
+              "x-faker": "address.timeZone"
+            }
+          }
+        },
+        "UserSettingsRequest": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "string",
+              "x-faker": "random.locale"
+            },
+            "timezone": {
+              "type": "string",
+              "x-faker": "address.timeZone"
+            }
+          }
+        },
+        "StatementsResponse": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StatementResponse"
+              }
+            },
+            "page": {
+              "$ref": "#/components/schemas/Page"
+            }
+          }
+        },
+        "StatementRequest": {
+          "type": "object",
+          "properties": {
+            "startDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.past"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.future"
+            }
+          }
+        },
+        "StatementResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "x-faker": "random.uuid"
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.past"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.future"
+            },
+            "generatedDate": {
+              "type": "string",
+              "format": "date-time",
+              "x-faker": "date.past"
+            }
           }
         }
       }
+      
     },
     "securitySchemes": {
       "OAuth2": {
