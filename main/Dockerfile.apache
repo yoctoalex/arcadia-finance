@@ -1,0 +1,31 @@
+
+FROM php:7.2-apache
+
+ENV REFER_A_FRIEND_MODULE_URL=http://refer-a-friend.internal
+
+# RUN docker-php-ext-install pdo pdo_mysql
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+# Update the PHP.ini file, enable <? ?> tags and quieten logging.
+RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' $PHP_INI_DIR/php.ini
+RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' $PHP_INI_DIR/php.ini
+RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' $PHP_INI_DIR/php.ini
+
+# RUN apt-get update && apt-get install -y \
+#     libcurl4-openssl-dev \
+#     && rm -rf /var/lib/apt/lists/*
+# RUN docker-php-ext-install curl
+
+# RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf
+# RUN a2enconf servername
+
+# RUN a2dissite 000-default
+
+EXPOSE 80
+
+COPY ./src/ /var/www/html
+WORKDIR /var/www/html
+
+HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl -f http://localhost || exit 1
+
+CMD apachectl -D FOREGROUND

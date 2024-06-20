@@ -60,9 +60,6 @@
 		exit();
 	}
 
-
-
-	
 	if (file_exists ($filename))
 	{
 		$string = file_get_contents($filename);
