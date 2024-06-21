@@ -1519,7 +1519,6 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 	
 	<script>
 		$(document).on('click', '#email_send', function(){
-			
 			$(".result_reference").hide();
 			$(".result_reference_fail").hide();
 			$(".result_reference_wait").show();

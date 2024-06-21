@@ -1190,7 +1190,10 @@
             "in": "path",
             "description": "ID of the transaction.",
             "required": true,
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
@@ -1246,7 +1249,10 @@
             "in": "path",
             "description": "ID of the transaction.",
             "required": true,
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "requestBody": {
@@ -1311,7 +1317,10 @@
             "in": "path",
             "description": "ID of the transaction.",
             "required": true,
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
@@ -1773,7 +1782,10 @@
             "in": "path",
             "description": "ID of the statement.",
             "required": true,
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
@@ -1829,7 +1841,10 @@
             "in": "path",
             "description": "ID of the statement.",
             "required": true,
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "requestBody": {
@@ -1894,7 +1909,10 @@
             "in": "path",
             "description": "ID of the statement.",
             "required": true,
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
@@ -1949,13 +1967,19 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Unique identifier for the bank",
+            "x-faker": "random.uuid"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the bank",
+            "x-faker": "company.companyName"
           },
           "countryCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Country code of the bank",
+            "x-faker": "address.countryCode"
           }
         }
       },
@@ -1977,21 +2001,26 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.currencyCode"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           },
           "creationDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.past"
           },
           "recipient": {
             "$ref": "#/components/schemas/Recipient"
@@ -2016,18 +2045,22 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           },
           "creationDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.past"
           }
         }
       },
@@ -2049,11 +2082,13 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.past"
           }
         }
       },
@@ -2061,16 +2096,20 @@
         "type": "object",
         "properties": {
           "number": {
-            "type": "integer"
+            "type": "integer",
+            "x-faker": "random.number"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "x-faker": "random.number"
           },
           "totalElements": {
-            "type": "integer"
+            "type": "integer",
+            "x-faker": "random.number"
           },
           "totalPages": {
-            "type": "integer"
+            "type": "integer",
+            "x-faker": "random.number"
           }
         }
       },
@@ -2078,13 +2117,16 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "name.findName"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "internet.email"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "internet.password"
           }
         }
       },
@@ -2092,13 +2134,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "name.findName"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "internet.email"
           }
         }
       },
@@ -2121,10 +2166,12 @@
         "properties": {
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.currencyCode"
           },
           "recipient": {
             "$ref": "#/components/schemas/Recipient"
@@ -2135,10 +2182,12 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           }
         }
       },
@@ -2147,10 +2196,12 @@
         "properties": {
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "lorem.sentence"
           }
         }
       },
@@ -2158,10 +2209,12 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           }
         }
       },
@@ -2169,10 +2222,12 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "lorem.sentence"
           }
         }
       },
@@ -2180,13 +2235,16 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "name.findName"
           },
           "accountNumber": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.account"
           },
           "bankCode": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.bic"
           }
         }
       },
@@ -2195,13 +2253,16 @@
         "properties": {
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.currencyCode"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "lorem.sentence"
           }
         }
       },
@@ -2209,17 +2270,21 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.currencyCode"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.word"
           }
         }
       },
@@ -2242,10 +2307,12 @@
         "properties": {
           "balance": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "x-faker": "finance.amount"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "finance.currencyCode"
           }
         }
       },
@@ -2253,13 +2320,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "name.findName"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "internet.email"
           }
         }
       },
@@ -2267,10 +2337,12 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "name.findName"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "internet.email"
           }
         }
       },
@@ -2278,10 +2350,12 @@
         "type": "object",
         "properties": {
           "language": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.locale"
           },
           "timezone": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "address.timeZone"
           }
         }
       },
@@ -2289,10 +2363,12 @@
         "type": "object",
         "properties": {
           "language": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.locale"
           },
           "timezone": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "address.timeZone"
           }
         }
       },
@@ -2315,11 +2391,13 @@
         "properties": {
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.past"
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.future"
           }
         }
       },
@@ -2327,23 +2405,28 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x-faker": "random.uuid"
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.past"
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.future"
           },
           "generatedDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-faker": "date.past"
           }
         }
       }
     },
+    
     "securitySchemes": {
       "OAuth2": {
         "type": "oauth2",

@@ -1,6 +1,6 @@
 FROM node:14 as nodebuilder
 
-ARG BASE_URL=https://openbanking.f5.volt-demo.online
+ARG BASE_URL=https://business-partner.acmecorp-prod.f5-cloud-demo.com/openbanking
 ENV BASE_URL $BASE_URL
 
 RUN mkdir -p /usr/share/www

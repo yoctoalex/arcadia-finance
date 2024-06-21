@@ -1,9 +1,4 @@
 <?php
-
-	$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-	$domainName = $_SERVER['HTTP_HOST'];
-	$backend = "app3";	
-	
 	if(empty($_GET['user_name']) || empty($_GET['email']) || empty($_GET['bank_id']))
 	{
 		header('HTTP/1.1 500 No Variables');
@@ -16,7 +11,12 @@
 	
 	$query = '{"email":"'.$email.'","dir":"1","bank_id":"'.$bank_id.'","user_name":"'.$user_name.'"}';
 	
-	$url = $protocol.$backend.'/app3/record_request.php';
+	$url = getenv('REFER_A_FRIEND_MODULE_URL');
+	if (empty($url)) {
+		$url = 'http://app3';
+	}
+	$url = $url.'/app3/record_request.php';
+
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $query);

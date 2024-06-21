@@ -3,34 +3,30 @@ services:
   frontend:
     build: 
       context: ./main
+      dockerfile: Dockerfile.apache
     volumes:
-      - ./main/MainApp:/var/www/html/
-    ports: 
-      - 3081:80  
+      - /var/www/html/
     hostname: frontend.internal
-    environment:
-      PMA_HOST: localhost
   backend:
     build: 
       context: ./backend
+      dockerfile: Dockerfile.apache
     volumes:
-      - ./backend/files/:/var/www/html/files/
-    ports: 
-      - 3082:80    
+      - /var/www/html/
     hostname: backend.internal
   money-transfer:
     build: 
       context: ./money-transfer
+      dockerfile: Dockerfile.apache
     volumes:
-      - ./money-transfer/api/:/var/www/html/api/
+      - /var/www/html/
     hostname: money-transfer.internal
   refer-a-friend:
     build: 
       context: ./refer-a-friend
+      dockerfile: Dockerfile.apache
     volumes:
-      - ./refer-a-friend/app3/:/var/www/html/app3/
-    ports: 
-      - 3083:80
+      - /var/www/html/
     hostname: refer-a-friend.internal
   nginx:
     build: 
@@ -40,21 +36,33 @@ services:
     depends_on:
       - frontend
       - backend
-  mortgage-fastcgi:
-    build: 
-      context: ./mortgage-calculator
-      dockerfile: phpfpm.Dockerfile
-    volumes:
-      - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/
-    hostname: fastcgi
-  mortgage-nginx:
-    build: 
-      context: ./mortgage-calculator
-      dockerfile: nginx.Dockerfile      
-    volumes:
-      - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/      
-    ports: 
-     - 5080:8080
-    hostname: mortgage-nginx.internal
-    depends_on:
-      - mortgage-fastcgi     
+  # mortgage-fastcgi:
+  #   build: 
+  #     context: ./mortgage-calculator
+  #     dockerfile: phpfpm.Dockerfile
+  #   volumes:
+  #     - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/
+  #   hostname: fastcgi
+  # mortgage-nginx:
+  #   build: 
+  #     context: ./mortgage-calculator
+  #     dockerfile: nginx.Dockerfile      
+  #   volumes:
+  #     - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/      
+  #   ports: 
+  #    - 5080:8080
+  #   hostname: mortgage-nginx.internal
+  #   depends_on:
+  #     - mortgage-fastcgi     
+  # openbanking:
+  #   hostname: openbanking.internal
+  #   build: 
+  #     context: ./openbanking
+  #     dockerfile: Dockerfile.nuapay
+
+  # openbanking:
+  #   build: 
+  #     context: ./openbanking
+  #     dockerfile: Dockerfile.postman
+  #     environment:
+  #       BASE_URL: https://business-partner.acmecorp-prod.f5-cloud-demo.com/openbanking
