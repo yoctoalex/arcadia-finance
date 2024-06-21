@@ -27,6 +27,6 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: ./mortgage-calculator/
-        file: Dockerfile.apache
+        file: ./mortgage-calculator/Dockerfile.apache
         push: true
         tags: ghcr.io/${{ github.repository }}/mortgage-calculator:latest
