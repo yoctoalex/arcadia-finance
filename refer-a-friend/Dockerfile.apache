@@ -1,19 +1,22 @@
+FROM php:8.3-apache
 
-FROM php:7.2-apache
+ARG PORT=8080
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-
-# Update the PHP.ini file, enable <? ?> tags and quieten logging.
 RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' $PHP_INI_DIR/php.ini
 RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' $PHP_INI_DIR/php.ini
 RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' $PHP_INI_DIR/php.ini
 
+RUN sed -i -e "s/80/$PORT/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 
-EXPOSE 80
+EXPOSE $PORT
 
-COPY /src/ /var/www/html/
+RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf
+RUN a2enconf servername
+
+COPY ./src/ /var/www/html
 WORKDIR /var/www/html
 
-HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl -f http://localhost || exit 1
+HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl -f http://localhost:$PORT || exit 1
 
-CMD apachectl -D FOREGROUND
+CMD docker-php-entrypoint apache2-foreground

@@ -1,7 +1,9 @@
-
-FROM php:7.2-apache
+FROM php:8.3-apache
 
 ENV REFER_A_FRIEND_MODULE_URL=http://refer-a-friend.internal
+ENV BACKEND_URL=http://backend.internal:8080
+ENV MORTGAGE_CALCULATOR_MODULE_URL=
+#ENV MORTGAGE_CALCULATOR_MODULE_URL=http://mortgage-calculator.internal:8080
 ARG PORT=8080
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -10,6 +12,9 @@ RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' $PHP_INI_DIR/php.in
 RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' $PHP_INI_DIR/php.ini
 
 RUN sed -i -e "s/80/$PORT/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf
+RUN a2enconf servername
 
 EXPOSE $PORT
 

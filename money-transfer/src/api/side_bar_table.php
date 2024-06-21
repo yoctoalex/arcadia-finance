@@ -8,8 +8,11 @@ if (isset($_SERVER['PHP_AUTH_USER']))
 		$authentication = true;
 	}
 }
-$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$domainName = "backend";
+$backend = getenv('BACKEND_URL');
+if (empty($backend)) {
+	$backend = 'http://backend.internal:8080';
+}
+
 ?>
 
 	  <table class="table table-compact smaller text-faded mb-0">
@@ -29,7 +32,7 @@ $domainName = "backend";
 		<tbody>
 		<?php
 			sleep (3);
-			$string = file_get_contents($protocol.$domainName."/files/money_transfer.json");
+			$string = file_get_contents($backend."/files/money_transfer.json");
 			$tranfer_list = json_decode($string, true);
 			$i = 0;
 			foreach ($tranfer_list as $key)

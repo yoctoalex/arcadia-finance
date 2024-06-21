@@ -15,9 +15,10 @@ else
 	if ($_SERVER['PHP_AUTH_USER'] == "admin" && $_SERVER['PHP_AUTH_PW'] == "iloveblue")
 	{
 
-		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$domainName = $_SERVER['HTTP_HOST'];
-    $backend = "backend";
+		$backend = getenv('BACKEND_URL');
+		if (empty($backend)) {
+			$backend = 'http://backend.internal:8080';
+		}
 
 		echo '
 			<div class="element-wrapper compact">
@@ -28,7 +29,7 @@ else
 				  <table class="table table-clean">
 					<tbody>';
 						sleep(2);
-						$string = file_get_contents($protocol.$backend."/files/stock_transactions.json");
+						$string = file_get_contents($backend."/files/stock_transactions.json");
 						$stock_tranfer_list = json_decode($string, true);
 						$i = 0;
 						foreach ($stock_tranfer_list as $key)

@@ -6,9 +6,10 @@ function authenticate() {
     exit;
 }
 
-		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$domainName = $_SERVER['HTTP_HOST'];
-    	$backend = "backend";
+		$backend = getenv('BACKEND_URL');
+		if (empty($backend)) {
+			$backend = 'http://backend.internal:8080';
+		}
 
 		echo '
 			<div class="element-wrapper compact">
@@ -19,8 +20,7 @@ function authenticate() {
 				  <table class="table table-clean">
 					<tbody>';
 
-						//$string = file_get_contents($protocol.$domainName."/files/stock_transactions.json");
-						$url = $protocol.$backend.'/files/stock_transactions.json';
+						$url = $backend.'/files/stock_transactions.json';
 						$ch = curl_init($url);
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 						$stock_transactions_result = curl_exec($ch);

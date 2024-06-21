@@ -1,8 +1,11 @@
 <?php
 
 $authentication = true;
-$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$domainName = "backend";
+$backend = getenv('BACKEND_URL');
+if (empty($backend)) {
+	$backend = 'http://backend.internal:8080';
+}
+
 
 foreach (getallheaders() as $name => $value) {
 
@@ -56,7 +59,7 @@ else
 }
 $my_trans_id = rand(300000000,999999999);
 
-$string = file_get_contents($protocol.$domainName."/files/accounts.json");
+$string = file_get_contents($backend."/files/accounts.json");
 $account_list = json_decode($string, true);
 if (($account_list[$_POST["account"]]['amount'] - $my_amount)>=0)
 {
@@ -66,7 +69,7 @@ if (($account_list[$_POST["account"]]['amount'] - $my_amount)>=0)
 	$account_list[$_POST["account"]]['amount'] = $new_amount;
 
 
-	$url = $protocol.$domainName.'/files/accounts.php';
+	$url = $backend.'/files/accounts.php';
 	$ch = curl_init($url);
 	$jsonDataEncoded = json_encode($account_list);
 	curl_setopt($ch, CURLOPT_POST, 1);
@@ -78,7 +81,7 @@ if (($account_list[$_POST["account"]]['amount'] - $my_amount)>=0)
 //	fwrite($my_account_file, json_encode($account_list));
 //	fclose($my_account_file);
 
-	$money = file_get_contents($protocol.$domainName."/files/money_transfer.json");
+	$money = file_get_contents($backend."/files/money_transfer.json");
 	$tranfer_list = json_decode($money, true);
 
 	$my_new_array = array();
@@ -94,7 +97,7 @@ if (($account_list[$_POST["account"]]['amount'] - $my_amount)>=0)
 		array_push($my_new_array,$key);
 	}
 
-	$url = $protocol.$domainName.'/files/money_transfer.php';
+	$url = $backend.'/files/money_transfer.php';
 	$ch = curl_init($url);
 	$jsonDataEncoded = json_encode($my_new_array);
 	curl_setopt($ch, CURLOPT_POST, 1);

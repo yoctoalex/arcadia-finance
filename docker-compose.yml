@@ -5,7 +5,7 @@ services:
       context: ./main
       dockerfile: Dockerfile.apache
     volumes:
-      - /var/www/html/
+      - ./main/src/:/var/www/html/
     hostname: frontend.internal
   backend:
     build: 
@@ -36,24 +36,14 @@ services:
     depends_on:
       - frontend
       - backend
-  # mortgage-fastcgi:
-  #   build: 
-  #     context: ./mortgage-calculator
-  #     dockerfile: phpfpm.Dockerfile
-  #   volumes:
-  #     - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/
-  #   hostname: fastcgi
-  # mortgage-nginx:
-  #   build: 
-  #     context: ./mortgage-calculator
-  #     dockerfile: nginx.Dockerfile      
-  #   volumes:
-  #     - ./mortgage-calculator/mortgage/:/usr/share/nginx/html/mortgage/      
-  #   ports: 
-  #    - 5080:8080
-  #   hostname: mortgage-nginx.internal
-  #   depends_on:
-  #     - mortgage-fastcgi     
+  mortgage:
+    build: 
+      context: ./mortgage-calculator
+      dockerfile: Dockerfile.apache
+    volumes:
+      - /var/www/html/
+    hostname: mortgage-calculator.internal
+
   # openbanking:
   #   hostname: openbanking.internal
   #   build: 

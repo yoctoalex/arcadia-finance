@@ -14,8 +14,10 @@ else
 {
 	if ($_SERVER['PHP_AUTH_USER'] == "admin" && $_SERVER['PHP_AUTH_PW'] == "iloveblue")
 	{
-		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$domainName = "backend";
+		$backend = getenv('BACKEND_URL');
+		if (empty($backend)) {
+			$backend = 'http://backend.internal:8080';
+		}
 
 		$_POST = json_decode(file_get_contents('php://input'), true);
 
@@ -58,13 +60,13 @@ else
 			$my_trans_id = rand(300000000,999999999);
 
 
-			$string = file_get_contents($protocol.$domainName."/files/stocks.json");
+			$string = file_get_contents($backend."/files/stocks.json");
 			$stocks = json_decode($string, true);
 			$stocks[$my_company]['qty'] = $stocks[$my_company]['qty'] + $my_qty;
 			$stocks[$my_company]['value'] = $stocks[$my_company]['value'] + $my_trans_value;
 
 
-			$url = $protocol.$domainName.'/files/stocks.php';
+			$url = $backend.'/files/stocks.php';
 			$ch = curl_init($url);
 			$jsonDataEncoded = json_encode($stocks);
 			curl_setopt($ch, CURLOPT_POST, 1);
@@ -90,7 +92,7 @@ else
 				$my_name = "Amazon";
 			}
 
-			$string = file_get_contents($protocol.$domainName."/files/stock_transactions.json");
+			$string = file_get_contents($backend."/files/stock_transactions.json");
 			$stock_transactions_list = json_decode($string, true);
 
 			$my_new_array = array();
@@ -109,7 +111,7 @@ else
 				array_push($my_new_array,$key);
 			}
 
-			$url = $protocol.$domainName.'/files/stock_transactions.php';
+			$url = $backend.'/files/stock_transactions.php';
 			$ch = curl_init($url);
 			$jsonDataEncoded = json_encode($my_new_array);
 			curl_setopt($ch, CURLOPT_POST, 1);

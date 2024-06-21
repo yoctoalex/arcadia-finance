@@ -15,14 +15,16 @@ else
 {
 	if ($_SERVER['PHP_AUTH_USER'] == "admin" && $_SERVER['PHP_AUTH_PW'] == "iloveblue")
 	{
-		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$domainName = "backend";
+		$backend = getenv('BACKEND_URL');
+		if (empty($backend)) {
+			$backend = 'http://backend.internal:8080';
+		}
 
 		sleep(1);
-		$string = file_get_contents($protocol.$domainName."/files/stocks.json");
+		$string = file_get_contents($backend."/files/stocks.json");
 		$stocks = json_decode($string, true);
 
-		$string = file_get_contents($protocol.$domainName."/files/stock_price.json");
+		$string = file_get_contents($backend."/files/stock_price.json");
 		$stock_price = json_decode($string, true);
 
 		$amazon_stock_price = $stock_price['AMZN']['stock_price'];

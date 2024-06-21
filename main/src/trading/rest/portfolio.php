@@ -14,18 +14,20 @@ else
 {
 	if ($_SERVER['PHP_AUTH_USER'] == "admin" && $_SERVER['PHP_AUTH_PW'] == "iloveblue")
 	{
-		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$domainName = "backend";
+		$backend = getenv('BACKEND_URL');
+		if (empty($backend)) {
+			$backend = 'http://backend.internal:8080';
+		}
 
-//		$string = file_get_contents($protocol.$domainName."/files/stocks.json");
-		$url = $protocol.$domainName.'/files/stocks.json';
+//		$string = file_get_contents($backend."/files/stocks.json");
+		$url = $backend.'/files/stocks.json';
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		$stocks_result = curl_exec($ch);
 		$stocks = json_decode($stocks_result, true);
 
-//		$string = file_get_contents($protocol.$domainName."/files/stock_price.json");
-		$url = $protocol.$domainName.'/files/stock_price.json';
+//		$string = file_get_contents($backend."/files/stock_price.json");
+		$url = $backend.'/files/stock_price.json';
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		$stock_price_result = curl_exec($ch);

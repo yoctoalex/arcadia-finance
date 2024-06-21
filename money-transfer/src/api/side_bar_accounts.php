@@ -8,15 +8,18 @@ if (isset($_SERVER['PHP_AUTH_USER']))
 		$authentication = true;
 	}
 }
-$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$domainName = "backend";
+$backend = getenv('BACKEND_URL');
+if (empty($backend)) {
+	$backend = 'http://backend.internal:8080';
+}
+
 ?>
 
 <option id="select_1" value=1>
   Select Acount ...
 </option>
 <?php
-	$string = file_get_contents($protocol.$domainName."/files/accounts.json");
+	$string = file_get_contents($backend."/files/accounts.json");
 	$accounts = json_decode($string, true);
 	foreach ($accounts as $key)
 	{

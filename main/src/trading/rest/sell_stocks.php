@@ -6,8 +6,11 @@ function authenticate() {
     exit;
 }
 
-		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$domainName = "backend";		
+		$backend = getenv('BACKEND_URL');
+		if (empty($backend)) {
+			$backend = 'http://backend.internal:8080';
+		}
+
 		$_POST = json_decode(file_get_contents('php://input'), true);
 
 		$variables_set ="on";
@@ -68,7 +71,7 @@ function authenticate() {
 				$my_name = "Amazon";
 			}
 
-			$string = file_get_contents($protocol.$domainName."/files/stocks.json");
+			$string = file_get_contents($backend."/files/stocks.json");
 			$stocks = json_decode($string, true);
 
 			if (($stocks[$my_company]['qty'] - $my_qty)>=0)
@@ -80,7 +83,7 @@ function authenticate() {
 //				fwrite($my_stocks_file, json_encode($stocks));
 //				fclose($my_stocks_file);
 
-				$url = $protocol.$domainName.'/files/stocks.php';
+				$url = $backend.'/files/stocks.php';
 				$ch = curl_init($url);
 				$jsonDataEncoded = json_encode($stocks);
 				curl_setopt($ch, CURLOPT_POST, 1);
@@ -89,7 +92,7 @@ function authenticate() {
 				$result = curl_exec($ch);
 
 
-				$string = file_get_contents($protocol.$domainName."/files/stock_transactions.json");
+				$string = file_get_contents($backend."/files/stock_transactions.json");
 				$stock_transactions_list = json_decode($string, true);
 
 
@@ -109,7 +112,7 @@ function authenticate() {
 					array_push($my_new_array,$key);
 				}
 
-				$url = $protocol.$domainName.'/files/stock_transactions.php';
+				$url = $backend.'/files/stock_transactions.php';
 				$ch = curl_init($url);
 				$jsonDataEncoded = json_encode($my_new_array);
 				curl_setopt($ch, CURLOPT_POST, 1);
