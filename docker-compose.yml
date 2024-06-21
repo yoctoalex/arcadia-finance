@@ -44,13 +44,13 @@ services:
       - /var/www/html/
     hostname: mortgage-calculator.internal
 
-  # openbanking:
-  #   hostname: openbanking.internal
-  #   build: 
-  #     context: ./openbanking
-  #     dockerfile: Dockerfile.nuapay
+  openbanking:
+    hostname: openbanking.internal
+    build: 
+      context: ./openbanking
+      dockerfile: Dockerfile.openbanking
 
-  # openbanking:
+  # openbanking-traffic:
   #   build: 
   #     context: ./openbanking
   #     dockerfile: Dockerfile.postman

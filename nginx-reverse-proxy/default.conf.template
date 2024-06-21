@@ -4,41 +4,40 @@ server {
     access_log /dev/stdout;
 
     location / {
-        resolver 127.0.0.11;
+        resolver ${RESOLVER};
         set $mainapp ${MAIN_APP};
         proxy_pass http://$mainapp;
     }
 
     location /files {
-        resolver 127.0.0.11;
+        resolver ${RESOLVER};
         set $backend ${BACKEND};
         proxy_pass http://$backend;
     }
 
     location /api {
-        resolver 127.0.0.11;
+        resolver ${RESOLVER};
         set $transfer ${MONEY_TRANSFER};
         proxy_pass http://$transfer;
     }
 
     location /app3 {
-        resolver 127.0.0.11;
+        resolver ${RESOLVER};
         set $friend ${REFER_A_FRIEND};
         proxy_pass http://$friend;
     }
 
     location /mortgage {
-        resolver 127.0.0.11;
+        resolver ${RESOLVER};
         set $mortgage ${MORTGAGE};
         proxy_pass http://$mortgage;
     }
 
     location /openbanking {
-        resolver 127.0.0.11;
+        resolver ${RESOLVER};
         set $openbanking ${OPEN_BANKING};
         proxy_pass http://$openbanking;
     }
-
 
     error_page   500 502 503 504  /50x.html;
     location = /50x.html {
