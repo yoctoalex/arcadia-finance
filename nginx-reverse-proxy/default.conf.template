@@ -1,47 +1,41 @@
-upstream mainapp {
-        server frontend.internal:8080;
-}
-
-upstream backend {
-        server backend.internal:8080;
-}
-
-upstream transfer {
-        server money-transfer.internal:8080;
-}
-
 server {
     listen 80 default_server;
 
     access_log /dev/stdout;
 
     location / {
-        proxy_pass http://mainapp/;
+        resolver 127.0.0.11;
+        set $mainapp ${MAIN_APP};
+        proxy_pass http://$mainapp;
     }
 
     location /files {
-        proxy_pass http://backend/files/;
+        resolver 127.0.0.11;
+        set $backend ${BACKEND};
+        proxy_pass http://$backend;
     }
 
     location /api {
-        proxy_pass http://transfer/api/;
+        resolver 127.0.0.11;
+        set $transfer ${MONEY_TRANSFER};
+        proxy_pass http://$transfer;
     }
 
     location /app3 {
         resolver 127.0.0.11;
-        set $friend refer-a-friend.internal:8080;
+        set $friend ${REFER_A_FRIEND};
         proxy_pass http://$friend;
     }
 
     location /mortgage {
         resolver 127.0.0.11;
-        set $mortgage mortgage-calculator.internal:8080;
+        set $mortgage ${MORTGAGE};
         proxy_pass http://$mortgage;
     }
 
     location /openbanking {
         resolver 127.0.0.11;
-        set $openbanking openbanking.internal:8080;
+        set $openbanking ${OPEN_BANKING};
         proxy_pass http://$openbanking;
     }
 
