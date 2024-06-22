@@ -23,10 +23,66 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
+    - name: Build and push Frontend Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./main/
+        file: ./main/Dockerfile.apache
+        push: true
+        tags: ghcr.io/${{ github.repository }}/frontend:v0.0.1
+
+    - name: Build and push Backend Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./backend/
+        file: ./backend/Dockerfile.apache
+        push: true
+        tags: ghcr.io/${{ github.repository }}/backend:v0.0.1
+
+    - name: Build and push Money Transfer Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./money-transfer/
+        file: ./money-transfer/Dockerfile.apache
+        push: true
+        tags: ghcr.io/${{ github.repository }}/money-transfer:v0.0.1
+
+    - name: Build and push Refer A Friend Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./refer-a-friend/
+        file: ./refer-a-friend/Dockerfile.apache
+        push: true
+        tags: ghcr.io/${{ github.repository }}/refer-a-friend:v0.0.1
+
+    - name: Build and push Nginx RP image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./nginx-reverse-proxy/
+        file: ./nginx-reverse-proxy/Dockerfile
+        push: true
+        tags: ghcr.io/${{ github.repository }}/nginx-reverse-proxy:v0.0.1
+
+    - name: Build and push Mortgage Calculator Docker image
       uses: docker/build-push-action@v4
       with:
         context: ./mortgage-calculator/
         file: ./mortgage-calculator/Dockerfile.apache
         push: true
         tags: ghcr.io/${{ github.repository }}/mortgage-calculator:v0.0.5
+
+    - name: Build and push Openbanking API Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./openbanking/
+        file: ./openbanking/Dockerfile.openbanking
+        push: true
+        tags: ghcr.io/${{ github.repository }}/openbanking:v0.0.1
+
+    - name: Build and push Openbanking Traffic Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./openbanking/
+        file: ./openbanking/Dockerfile.postman
+        push: true
+        tags: ghcr.io/${{ github.repository }}/openbanking:v0.0.1
