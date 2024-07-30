@@ -1969,7 +1969,7 @@
           "id": {
             "type": "string",
             "description": "Unique identifier for the bank",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "name": {
             "type": "string",
@@ -2002,7 +2002,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "amount": {
             "type": "number",
@@ -2046,7 +2046,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "amount": {
             "type": "number",
@@ -2097,19 +2097,19 @@
         "properties": {
           "number": {
             "type": "integer",
-            "x-faker": "random.number"
+            "x-faker": "datatype.number"
           },
           "size": {
             "type": "integer",
-            "x-faker": "random.number"
+            "x-faker": "datatype.number"
           },
           "totalElements": {
             "type": "integer",
-            "x-faker": "random.number"
+            "x-faker": "datatype.number"
           },
           "totalPages": {
             "type": "integer",
-            "x-faker": "random.number"
+            "x-faker": "datatype.number"
           }
         }
       },
@@ -2135,7 +2135,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "name": {
             "type": "string",
@@ -2183,7 +2183,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "status": {
             "type": "string",
@@ -2210,7 +2210,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "status": {
             "type": "string",
@@ -2271,7 +2271,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "amount": {
             "type": "number",
@@ -2321,7 +2321,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "name": {
             "type": "string",
@@ -2406,7 +2406,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "x-faker": "random.uuid"
+            "x-faker": "datatype.uuid"
           },
           "startDate": {
             "type": "string",
