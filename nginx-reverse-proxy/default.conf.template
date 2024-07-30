@@ -36,6 +36,12 @@ server {
     location /openbanking {
         resolver ${RESOLVER};
         set $openbanking ${OPEN_BANKING};
+
+        if ($request_uri = "/openbanking") {
+            rewrite ^/openbanking/?$ / break;
+        }
+
+        rewrite ^/openbanking(.*) $1 break;
         proxy_pass http://$openbanking;
     }
 
