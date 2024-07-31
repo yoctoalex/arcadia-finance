@@ -85,4 +85,4 @@ jobs:
         context: ./openbanking/
         file: ./openbanking/Dockerfile.postman
         push: true
-        tags: ghcr.io/${{ github.repository }}/openbanking-traffic:v0.0.1
+        tags: ghcr.io/${{ github.repository }}/openbanking-traffic:v0.0.2
