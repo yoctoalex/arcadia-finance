@@ -40,3 +40,5 @@ docker run -dit -h app3 --name=app3 --net=internal registry.gitlab.com/mattdieri
 docker run -dit -h nginx --name=nginx --net=internal -p 80:80 -v full_path_to_nginx_conf_file:/etc/nginx/conf.d/default.conf registry.gitlab.com/mattdierick/arcadia-finance/nginx_oss:latest
 
 Use default.conf NGINX file for the NGINX API GW.
+
+![](https://pixel.github.securelab.online/arcadia-finance.png)
